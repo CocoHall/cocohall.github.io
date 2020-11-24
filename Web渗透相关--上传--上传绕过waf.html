@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>上传绕过waf</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>上传绕过waf</h1><br/><br />当我们上传一个文件的filename为shell.php{%80-%99}时：<br />waf可能识别为.php{%80-%99}，就会导致被绕过。<br /><br /><br />Windows在创建文件时，在文件名末尾不管加多少点都会自动去除<br />那么上传时filename可以这么写shell.php......也可以这么写shell.php::$DATA.......<br /><br /><br />ascii &gt; 127<br />长文件名绕过waf<br />扩展名前加大量.,中文等<br /><br />NTFS ADS特性<br /><a href=""><img src="images\20-1.png" alt="images\20-1.png" /></a><br /><br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

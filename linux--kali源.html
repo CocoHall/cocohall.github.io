@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>kali源</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>kali源</h1><br/>更新apt密钥<br /> wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add<br /> <br /> 显示无法安全地用该源进行更新，解决方法如下<br /> apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys ED444FF07D8D0BF6<br /> <br />更新源：<br /><br /><br />gedit /etc/apt/sources.list<br /><br />deb http://mirrors.ustc.edu.cn/kali kali-rolling main contrib non-free<br /><br />#删除所有，改为这一行<br /><br /><br />kali安装docker<br /><br />apt-get update<br />apt-get install docker docker.io<br /><br />-y 不询问直接安装<br />kali-linux kali     裸机      1.5G<br />kali-linux-full     ISO镜像    9G<br />kali-linux-all      硬件        15G<br />kali-linux-top10             3.5G<br />kali-linux-forensic 取证    3.1G<br />kali-linux-gpu   GPU        4.8G<br />kali-linux-pwtools 密码    6.0G<br />kali-linux-rfid                 1.5G<br />kali-linux-sdr                  2.4G<br />kali-linux-voip                 1.8G<br />kali-linux-web                  4.9G<br />kali-linux-wireless             6.6G<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

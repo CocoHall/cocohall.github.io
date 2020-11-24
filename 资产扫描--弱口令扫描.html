@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>弱口令扫描</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>弱口令扫描</h1><br/><br />弱口令扫描<br /><br />hydra -L dic/ssh/users.txt -P dic/ssh/pwd.txt -t 16 -e ns -M iplist.txt ssh <br /><br />hydra -L dic/ftp/users.txt -P dic/ftp/pwd.txt -t 16 -e ns -M iplist.txt ftp<br /><br />hydra -L dic/rdp/users.txt -P dic/rdp/pwd.txt -t 16 -e ns -M iplist.txt rdp<br /><br />hydra -L dic/telnet/users.txt -P dic/telnet/pwd.txt -t 16 -e ns -M iplist.txt telnet  <br /><br />hydra -L dic/mysql/users.txt -P dic/mysql/pwd.txt -t 16 -e ns -M iplist.txt mysql<br /><br />hydra -L dic/mssql/users.txt -P dic/mssql/pwd.txt -t 16 -e ns -M iplist.txt mssql<br /><br />hydra -L dic/smb/users.txt -P dic/smb/pwd.txt -t 16 -e ns -M iplist.txt smb <br /><br />nmap --script=oracle-sid-brute -p 1521-1560 172.15.1.1/24<br /><br />nmap --script oracle-brute -p 1521 --script-args oracle-brute.sid=ORCL,userdb=/var/passwd,passdb=/var/passwd 192.168.137.5<br /><br />未授权<br /><br />nmap --script memcached-info -vv -oX mem.xml -p 11211 172.15.1.1/24<br />nmap --script mongodb-info -vv -oX mongo.xml -p 27017 172.15.1.1/24<br />nmap --script redis-info -vv -oX redis.xml -p 6379 172.15.1.1/24<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

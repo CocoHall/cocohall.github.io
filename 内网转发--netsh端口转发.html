@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>netsh端口转发</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>netsh端口转发</h1><br/>windows 7上就可以直接用netsh了，在xp/2003的话，要先安装ipv6<br /><br />netsh interface ipv6 install<br /><br />将本地端口443转发至192.168.1.200的3389端口<br /><br />netsh interface portproxy add v4tov4 listenport=443 listenaddress=0.0.0.0 connectaddress=192.168.1.200 connectport=3389<br /><br /><br />可使用命令netsh interface portproxy show all来查看所有已建转发规则<br />PS：删除转发规则 ，add改为delete，注意：防火墙例外443端口<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

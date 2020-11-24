@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>修改时间戳</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>修改时间戳</h1><br/>windows：<br />三种时间戳<br />LastWriteTime       （属性修改不会更改这个时间）<br />CreationTime<br />LastAccessTime<br /><br />Get-Childitem -path &#39;.&#39; -Recurse | foreach-object { $_.LastWriteTime = Get-Date; $_.CreationTime = Get-Date;$_.LastAccessTime = Get-Date;}<br /><br />Get-Childitem -path &#39;.&#39; -Recurse | foreach-object { $_.LastWriteTime = &#39;01/01/1970 00:00:01&#39;; $_.CreationTime = Get-Date;$_.LastAccessTime = Get-Date;}<br /><br />Get-Childitem -path &#39;.&#39; -Recurse | foreach-object { $_.LastWriteTime = &#39;05/02/2010 19:31:30&#39;; $_.CreationTime = &#39;05/02/2010 19:31:30&#39;;$_.LastAccessTime = &#39;05/02/2010 19:31:30&#39;;}<br /><br />Get-Childitem -path &#39;.&#39; -Recurse | foreach-object { $_.LastWriteTime = &#39;01/04/2011 16:27:27&#39;; $_.CreationTime = &#39;01/04/2011 16:27:27&#39;;$_.LastAccessTime = &#39;09/13/2011 19:45:33&#39;;}<br /><br />linux:<br />三种时间戳<br />mtime   修改内容时间<br />ctime     修改属性时间<br />atime     访问时间<br /><br />复制 index.php 的时间，赋给 webshell.php<br />touch -r index.php webshell.php<br /><br />修改访问时间和修改时间<br />touch -t 201708170708.25 file<br />touch -d &quot;2013-10-12 10:21:34&quot; file<br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>截断问题</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>截断问题</h1><br/>5.4.0以前<br />iconv存在截断问题<br />类似于<br />$struct_file[&#39;name&#39;] = iconv(&quot;UTF-8&quot;, &quot;gb2312&quot;, $struct_file[&#39;name&#39;]);<br /><br />$filename=&quot;shell.php(hex).jpg&quot;;<br /> (hex为0×80-0×99)，经过iconv转码后会变成$filename=&quot;shell.php &quot;;<br /> <br /> <br /> 5.3.4以前<br /> 可以使用00截断<br /> <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

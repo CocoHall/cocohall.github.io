@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Nginx</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Nginx</h1><br/>Nginx解析漏洞：<br /><br />Nginx 0.5.*<br />Nginx 0.6.*<br />Nginx 0.7 &lt;= 0.7.65<br />Nginx 0.8 &lt;= 0.8.37<br /><br />以上Nginx容器的版本下，上传一个在waf白名单之内扩展名的文件shell.jpg，然后以shell.jpg.php进行请求或shell.jpg/x.php。<br /><br />Nginx 0.8.41 – 1.5.6：<br /><br />以上Nginx容器的版本下，上传一个在waf白名单之内扩展名的文件shell.jpg，然后以shell.jpg%20.php进行请求。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

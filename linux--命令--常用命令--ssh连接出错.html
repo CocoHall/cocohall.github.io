@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>ssh连接出错</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>ssh连接出错</h1><br/>将ssh目录权限设置为700（/etc/ssh）<br />或者在配置文件中设置StrictModes no <br />（gedit /etc/ssh/sshd_config）<br /><br /><br />/etc/ssh/<br />文件夹下有一些公私钥<br />ssh-keygen -t dsa /etc/ssh/ssh_host_dsa_key<br />ssh-keygen -t ecdsa /etc/ssh/ssh_host_ecdsa_key<br />ssh-keygen -t ed25519 /etc/ssh/ssh_host_ed25519_key<br />ssh-keygen -t rsa /etc/ssh/ssh_host_rsa_key<br />ssh-keygen -t rsa1 /etc/ssh/ssh_host_rsa1_key<br />chmod 600 /etc/ssh/*key<br /><br />sshd为了安全，对属主的目录和文件权限有所要求。如果权限不对，则ssh的免密码登陆不生效。<br />用户目录权限为 755 或者 700，就是不能是77x。<br />.ssh目录权限一般为755或者700。<br />rsa_id.pub 及authorized_keys权限一般为644<br />rsa_id权限必须为600<br /><br />开机启动<br />update-rc.d ssh enable<br /><br /><br /><br />kali下默认不开启ssh和密码登录<br /><br />vi /etc/ssh/sshd_config<br />PermitRootLogin yes<br />PasswordAuthentication yes<br /><br /><br />update-rc.d ssh enable<br /><br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

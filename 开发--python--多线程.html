@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>多线程</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>多线程</h1><br/><br /><br />t1 = threading.Thread(target=out,args=(&#39;test&#39;,))<br />t1.setDaemon(True)#主线程退出，子线程也退出<br />t1.start()<br />t1.join()#等待子线程结束<br /><br /><br />q=queue.Queue()#使用队列配合多线程，线程安全<br />q=queue.Queue(maxsize = 10)#最大长度，会阻塞<br />q.qsize()<br />q.put(i)<br />while not q.empty():<br />    print q.get()<br />    <br />    <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

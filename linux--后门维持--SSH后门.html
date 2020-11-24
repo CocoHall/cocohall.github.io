@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>SSH后门</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>SSH后门</h1><br/>ssh -qTfnN -L port:host:hostport -l user remote_ip 正向隧道，监听本地port<br /><br />ssh -qTfnN -R port:host:hostport -l user remote_ip 反向隧道，用于内网穿透防火墙限制之类<br /><br />ssh -qTfnN -D port remotehost 直接进行socks代理<br /><br />-q 安静模式<br />-T 不占用shell<br />-f 后台运行，推荐加-n参数<br />-N 不执行远程命令<br /><br /><br />SSH端口转发：<br />	<br />ssh -CfNg -L port1:127.0.0.1:port2 user@host 本地转发<br />ssh -CfNg -R port2:127.0.0.1:port1 user@hsst 远程转发<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

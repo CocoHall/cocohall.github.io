@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>runscripthelper微软签名的ps脚本</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>runscripthelper微软签名的ps脚本</h1><br/>win10 之后自带<br />运行对应目录下的ps脚本，输出到指定目录<br />\\?\%ProgramData%\Microsoft\Diagnosis\scripts（前面的\\?\必须要：unicode编码）<br />默认该文件没有权限，可以更改环境变量修改%ProgramData%<br />例如：新建用户变量ProgramData 值为d:\ProgramData,然后在相应的目录创建相应的子目录即可<br /><br />runscripthelper.exe surfacecheck \\?\C:\ProgramData\Microsoft\Diagnosis\scripts\1.ps1 C:\Test<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

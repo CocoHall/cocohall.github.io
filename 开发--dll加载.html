@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>dll加载</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>dll加载</h1><br/>dll导出函数<br />两种方式<br />1、在函数中添加如下信息<br />extern &quot;C&quot; __declspec(dllexport) int message(){return 1;}<br />2、新建def文件<br />样式如下;<br />LIBRARY<br />EXPORTS<br />	message<br />	<br />	<br />使用__declspec(dllexport)和使用.def文件是有区别的。<br /><br />如果你的DLL是提供给VC用户使用的，你只需要把编译DLL时产生的.lib提供给用户，<br />它可以很轻松地调用你的DLL。但是如果你的DLL是供VB、PB、Delphi用户使用的，那么会产生一个小麻烦。<br />因为VC++编译器对于__declspec(dllexport)声明的函数会进行名称转换，如下面的函数：<br />__declspec(dllexport) int __stdcall Add()<br />会转换为Add@0，这样你在VB中必须这样声明：<br />Declare Function Add Lib &quot;DLLTestDef.dll&quot; Alias &quot;Add@0&quot; () As Long<br />@后面的数由于参数类型不同而可能不同。这显然不太方便。所以如果要想避免这种转换，就要使用.def文件方式导出函数了。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

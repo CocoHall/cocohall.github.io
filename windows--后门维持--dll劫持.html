@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>dll劫持</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>dll劫持</h1><br/>WindowsXP 默认情况下禁用安全 DLL 搜索模式。之后默认启用安全 DLL 搜索模式<br /> HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode <br /> 注册表值，0 为禁止，1 为启用<br /> <br /> SafeDLLSearchMode 启用后，搜索顺序如下：<br />    从其中加载应用程序的目录、系统目录。<br />    使用 GetSystemDirectory 函数获取此目录的路径。<br />    16 位系统目录。没有获取此目录的路径的函数，但会搜索它。<br />    Windows 目录。使用 GetWindowsDirectory 函数获取此目录。<br />    当前目录。<br />    PATH 环境变量中列出的目录。<br />SafeDLLSearchMode 禁用后，搜索顺序如下：<br />    从其中加载应用程序的目录<br />    当前目录<br />    系统目录。使用 GetSystemDirectory 函数获取此目录的路径。<br />    16 位系统目录。没有获取此目录的路径的函数，但会搜索它。<br />    Windows 目录。使用 GetWindowsDirectory 函数获取此目录。<br />    PATH 环境变量中列出的目录。<br />    <br />具体大概是自己构建一个dll，导出表和正常的dll一致，但是实际函数全部调用原来的dll<br />在其中某个地方执行自己的代码<br />具体看<a href="https://www.freebuf.com/articles/system/210910.html">https://www.freebuf.com/articles/system/210910.html</a><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

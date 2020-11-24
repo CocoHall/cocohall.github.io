@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>命令加密</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>命令加密</h1><br/><br />$data = &#39;powershell代码&#39;<br />$bytes = [System.Text.Encoding]::<strong>Unicode</strong>.GetBytes($data)<br />$encodedCommand = [Convert]::ToBase64String($bytes)<br /><br />powershell -enc $encodedCommand<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

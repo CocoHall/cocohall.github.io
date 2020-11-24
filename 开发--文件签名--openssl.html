@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>openssl</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>openssl</h1><br/>生成一个2048位的证书密钥<br />openssl genrsa -out test.key 2048<br /><br />生成证书请求文件csr<br />openssl req -new -sha256 -key test.key -subj &quot;/1.3.6.1.4.1.311.60.2.1.3=US/1.3.6.1.4.1.311.60.2.1.2=New Hampshire/1.3.6.1.4.1.311.60.2.1.1=Portsmouth/businessCategory=Private Organization/C=US/ST=New Hampshire/L=Portsmouth/street=Two International Drive/O=GlobalSign Inc./OU=PCompliance/CN=test.globalsign-support.com/serialNumber=578611&quot; -out test.csr<br /><br />生成证书<br />openssl x509 -req -days 365 -sha256 -extfile openssl.cfg -extensions v3_req -in test.csr -signkey test.key -out test.crt<br /><br />查看私钥明细<br />openssl rsa -in privatekey.pem -noout -text<br />openssl x509 -in privatekey.pem -noout -text<br /><br />私钥产生公钥<br />openssl rsa -in privatekey.pem -pubout -out publickey.pem<br /><br />根据私钥生成证书签名请求<br />openssl req -new -key privatekey.pem -out csr.pem -subj &quot;/C=CN/ST=BJ/L=BJ/O=HD/OU=ops/CN=*.joker.com/emailAddress=hello@world.com&quot;<br /><br /><strong>生成pfx格式证书</strong><br />openssl req -newkey rsa:2048 -nodes -keyout socialnetwork.key -x509 -days 365 -out socialnetwork.cer<br />openssl pkcs12 -export -in socialnetwork.cer -inkey socialnetwork.key -out socialnetwork.pfx<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

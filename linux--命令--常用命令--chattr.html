@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>chattr</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>chattr</h1><br/><br />chattr 命令中用于隐藏权限的参数及其作用<br /><br />a   仅允许补充（追加）内容，无法覆盖/删除内容（Append Only）<br />A   文件或目录的 atime (access time)不可被修改(modified)<br />c：即compresse，设定文件是否经压缩后再存储。读取时需要经过自动解压操作<br />d   使用 dump 命令备份时忽略本文件/目录<br />D   检查压缩文件中的错误<br />e<br />i    无法对文件进行修改；若对目录设置了该参数，则仅能修改其中的子文件内容，而不能新建或删除文件<br />j：即journal，设定此参数使得当通过mount参数：data=ordered 或者<br />data=writeback 挂 载的文件系统，文件在写入时会先被记录(在journal中)。如果filesystem被设定参数为<br />data=journal，则该参数自动失效。 <br />s   彻底从硬盘中删除，不可恢复（用 0 填充原文件所在硬盘区域）<br />S   文件内容在变更后立即同步到硬盘（sync）<br />t   让文件系统支持尾部合并（tail-merging）<br />T<br />u：与s相反，当设定为u时，数据内容其实还存在磁盘中<br /><br /><br /><br /><br />主要是a A i <br /><br /><br /><br />chattr命令不能保护/、/dev、/tmp、/var目录<br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

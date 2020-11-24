@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>rar爆破</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>rar爆破</h1><br/>暴力破解<br />rarcrack --threads xx --type rar xx.rar         <br />--threads             #线程<br />--type                   #文件格式 rar zip 7z<br /><br />默认从0开始破解，密码元素默认为大小写字母加数字；当然有也可以自定义：<br />在要破解密码的rar文件同一目录下新建一个.xml文件，内容为：<br /><br />&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />&lt;rarcrack&gt;<br />  &lt;abc&gt;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&lt;/abc&gt;<br />  &lt;current&gt;xxxxxx&lt;/current&gt;<br />  &lt;good_password/&gt;<br />&lt;/rarcrack&gt;<br /><br />保存为与要破解rar文件相同名；比如要rar文件为test.rar，则该文件保存为test.rar.xml；以上绿色字体可以自定义密码元素，黄色字体可以自定义开始枚举的密码。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

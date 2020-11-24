@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>隐藏console</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>隐藏console</h1><br/>打开*.sln之后，在项目的属性页，“配置属性”/“链接器”/“系统”中“子系统”选择<br />“Windows（/SUBSYSTEM:WINDOWS）原先为“控制台(/SUBSYSTEM:CONSOLE)” <br />如果只修改这一项，重新编译的时候会报这样的错误：<br /><br /> MSVCRTD.lib(crtexew.obj) : error LNK2019: 无法解析的外部符号 _WinMain@16，该符号在函数 ___tmainCRTStartup 中被引用<br /><br /> 需要在“高级”选项中添加“入口点”：mainCRTStartup<br /> 再次编译就OK了。<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

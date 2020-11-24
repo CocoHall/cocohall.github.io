@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>电源管理</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>电源管理</h1><br/>SETACVALUEINDEX：修改交流电的设置<br />SETDCVALUEINDEX：修改电池的设置<br /><br />获取当前的电源方案UUID<br />powercfg /GETACTIVESCHEME<br /><br />睡眠按钮：不采取任何操作<br />powercfg /SETACVALUEINDEX uuid SUB_BUTTONS SBUTTONACTION 0<br />powercfg /SETDCVALUEINDEX uuid SUB_BUTTONS SBUTTONACTION 0<br /><br />电源按钮：不采取任何操作<br />powercfg /SETACVALUEINDEX uuid SUB_BUTTONS PBUTTONACTION 0<br />powercfg /SETDCVALUEINDEX uuid SUB_BUTTONS PBUTTONACTION 0<br /><br />合上盖子：不采取任何操作<br />powercfg /SETACVALUEINDEX uuid SUB_BUTTONS LIDACTION 0<br />powercfg /SETDCVALUEINDEX uuid SUB_BUTTONS LIDACTION 0<br /><br />在此时间后关闭显示：从不<br />powercfg /SETACVALUEINDEX uuid SUB_VIDEO VIDEOIDLE 0<br />powercfg /SETDCVALUEINDEX uuid SUB_VIDEO VIDEOIDLE 0<br /><br />在此时间后睡眠：从不<br />powercfg /SETACVALUEINDEX uuid SUB_SLEEP STANDBYIDLE 0<br />powercfg /SETDCVALUEINDEX uuid SUB_SLEEP STANDBYIDLE 0<br /><br />在此时间后休眠：从不<br />powercfg /SETACVALUEINDEX uuid SUB_SLEEP HIBERNATEIDLE 0<br />powercfg /SETDCVALUEINDEX uuid SUB_SLEEP HIBERNATEIDLE 0<br /><br />不休眠<br />powercfg /x hibernate-timeout-ac 0<br />不睡眠<br />powercfg /x standby-timeout-ac 0<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>修改文件时间戳</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>修改文件时间戳</h1><br/>比如参考 index.php 的时间，再赋给 webshell.php，结果两个文件的时间就一样了。<br />touch -r index.php webshell.php<br /><br />或者直接将时间戳修改成某年某月某日。如下 2014 年 01 月 02 日。<br />touch -t 1401021042.30 webshell.php<br /><br />修改目录下的所有文件时间戳<br />touch -d &quot;2013-10-12 10:21:34&quot; *   <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

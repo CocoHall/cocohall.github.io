@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>signtool</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>signtool</h1><br/>makecert -n &quot;CN=Microsoft Windows&quot; -r -sv Root.pvk Root.cer<br />cert2spc Root.cer Root.spc<br />pvk2pfx -pvk Root.pvk -pi password -spc Root.spc -pfx Root.pfx -f<br />signtool sign /f Root.pfx /p password test.exe<br /><br />执行后生成Root.cer、Root.spc、Root.pfx、Root.pvk四个文件，test.exe被加上数字签名<br /><br /><strong>只支持用pfx、p12文件进行签名</strong><br />支持sys，exe，DLL，vbs和wsf 文件的签名<br /><br />证书注册：<br />管理员权限cmd，将证书添加到localmachine：<br />certmgr.exe -add -c Root.cer -s -r localmachine root<br /><br /><br />几个应用程序可能在<br /><a href="file://C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin">C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin</a><br />目录下<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

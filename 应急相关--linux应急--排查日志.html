@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>排查日志</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>排查日志</h1><br/>centos自动脚本 <a href="https://github.com/T0xst/linux/blob/master/buying_linuxcheck.sh">https://github.com/T0xst/linux/blob/master/buying_linuxcheck.sh</a><br /><br />检查开放端口<br />    netstat -tupln<br /><br />查看连接<br />    netstat -ano<br /><br />查看root权限账号<br />    awk -F: &#39;{if($3==0)print $1}&#39; /etc/passwd<br /><br />可登陆用户<br />    cat /etc/passwd | grep -E &quot;/bin/bash$&quot;<br /><br />计划任务<br />    crontab -u user -l<br />    查看计划任务日志<br />        cat /var/log/cron*<br />        <br />历史命令<br />    histroy<br /><br />HOSTS文件劫持<br />    cat /etc/hosts<br /><br />登陆日志<br />    last<br /><br />启动项<br />    chkconfig<br />    系统启动项 systemctl list-unit-files | grep enabled<br /><br />rootkit<br />    rkhunter    http://rkhunter.sourceforge.net<br />    chkrootkit  http://www.chkrootkit.org<br /><br />webshell<br />    几个查杀工具<br />    详见webshell免杀<br /><br />web日志<br />    /var/log/httpd/access log<br />    C:/Windows/System32/inetsrv/config/application/Host.config<br />    /usr/local/nginx/logs<br /><br />中间件漏洞<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

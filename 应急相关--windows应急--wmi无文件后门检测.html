@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>wmi无文件后门检测</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>wmi无文件后门检测</h1><br/>powershell<br /><br /><code>Get-WmiObject -Namespace root\default -list | Where-Object {$_.name -Match &quot;^[a-z]&quot;}<br />Get-WmiObject -Namespace root\subscription -class commandlineeventconsumer<br />Get-WmiObject -Namespace root\subscription -class __eventfilter<br />Get-WmiObject -Namespace root\subscription -class __FilterToConsumerBinding</code><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

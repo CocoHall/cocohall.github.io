@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>vbs或cscript</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>vbs或cscript</h1><br/><br />cscript<br /><br />var xmlHTTP = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);<br />xmlHTTP.open(&quot;Get&quot;, &quot;<a href="https://www.baidu.com",">https://www.baidu.com&quot;,</a> false);<br />xmlHTTP.send();<br />s=new ActiveXObject(&quot;ADODB.Stream&quot;);<br />s.Type=1;<br />s.Open();<br />s.Write(xmlHTTP.responseBody);	<br />s.SaveToFile(&quot;C:\\Users\\xiaohao\\Desktop\\2.txt&quot;,2); <br /><br /><br />vbs<br /><br /><br />Set xPost = CreateObject(&quot;microsoft.XMLHTTP&quot;)<br />Set sGet = CreateObject(&quot;ADODB.Stream&quot;)<br />url=&quot;<a href="https://www.baidu.com"">https://www.baidu.com&quot;</a><br />xPost.Open &quot;GET&quot;, url, False<br />xPost.Send<br />sGet.Type = 1<br />sGet.Open<br />sGet.Write xPost.responseBody<br />sGet.SaveToFile &quot;1.txt&quot;, 2<br />sGet.Close<br /><br /><br />						<span style="color:#90ee90;">非内置</span><br /><br />python<br />ruby<br />perl<br />csc<br />java<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

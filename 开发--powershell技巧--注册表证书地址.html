@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>注册表证书地址</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>注册表证书地址</h1><br/>注册表<br />Registry::HKCU<br />Registry::HKLM<br /><br /><br />证书<br />cert:<br /><br /><br />读注册表项<br />Get-ChildItem  -Path &quot;Registry::HKLM\SYSTEM\CurrentControlSet\Services&quot;<br /><br />读注册表键值<br />(Get-ItemProperty -Path &quot;Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot; -ErrorAction Stop).Desktop<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Bash</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Bash</h1><br/><br />特殊变量<br /><br /><table class="table"><tr><th>点击这里</th><th>点击这里</th></tr><tr><td>$0</td><td>脚本名称</td></tr><tr><td>$1-9　　　　　</td><td>脚本执行时的参数1到参数9</td></tr><tr><td>$?</td><td>脚本的返回值　　　　</td></tr><tr><td>$#</td><td>脚本执行时，输入的参数的个数</td></tr><tr><td>$@</td><td>输入的参数的具体内容（将输入的参数作为一个数组）</td></tr><tr><td>$*</td><td>输入的参数的具体内容（将输入的参数作为一个string）</td></tr><tr><td>$$</td><td>当前进程ID</td></tr></table><br /><br />反引号：<br />    反引号可以引用一个命令执行的结果<br /><br />单引号：<br />    将单引号内的内容原样输出<br /><br />双引号：<br />    如果内容中有命令，变量等，会先把变量，命令解析出结果，然后在输出最终内容来<br />    写法为`命令或变量`或$（命令或变量）<br />    <br />无引号：<br />　　把内容输出出来，不会将含有空格的字符串视为一个整体输出；<br />　　如果内容中有命令、变量等，会先把变量、命令解析结果，然后在输出最终内容来；<br />　　如果字符串中带有空格等特殊字符，则不能完整的输出，需要改加双引号，一般连续的字符串，数字，路径等可以用，不过最好用双引号替代之<br /><br />-d 测试文件是否为目录类型<br />-e 测试一般文件是否存在<br />-f 判断是否为一般文件<br />-r 测试当前用户是否有权限读取<br />-w 测试当前用户是否有权限写入<br />-x 测试当前用户是否有权限执行<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

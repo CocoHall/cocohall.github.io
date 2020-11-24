@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>winlogon</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>winlogon</h1><br/>HKLM\Software\Microsoft\WindowsNT\CurrentVersion\Winlogon\<br />HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\<br /><br />Winlogon\Notify – 指向处理 Winlogon 事件的通知包 DLL<br />Winlogon\Userinit – 指向 userinit.exe，即用户登录时执行的用户初始化程序<br />Winlogon\Shell – 指向 explorer.exe，即用户登录时执行的系统 shell<br /><br />将shell从explorer.exe改为<br />explorer.exe, rundll32.exe &quot;C:\topsec.dll&quot; RunProc<br />即可<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

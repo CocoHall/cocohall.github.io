@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>dll劫持</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>dll劫持</h1><br/>DllHijackAuditor<br /><br />一个软件<br /><br /><br />dll加载顺序<br /><a href="https://docs.microsoft.com/zh-cn/windows/win32/dlls/dynamic-link-library-search-order?redirectedfrom=MSDN">https://docs.microsoft.com/zh-cn/windows/win32/dlls/dynamic-link-library-search-order?redirectedfrom=MSDN</a><br /><br />大前提<br />1、相同名称已加载的dll<br />2、注册表中指定的已知dll及其从属dll  HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\KnownDLLs<br /><br /><br />应用商店的dll加载顺序<br />1、程序清单中的顺序<br />2、指定的模块加载目录或进程加载目录<br />3、系统目录 %SystemRoot%\system32<br /><br />桌面应用<br /><br />安全DLL搜索模式 HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SessionManager\SafeDllSearchMode 1启用 0禁用 xp sp2开始默认启用<br />1、应用程序目录<br />2、系统目录 GetSystemDirectory %SystemRoot%\system32<br />3、16位系统目录 %SystemRoot%\system<br />4、Windows目录 GetWindowsDirectory     %SystemRoot%<br />5、当前目录<br />6、PATH环境变量<br /><br />不安全DLL搜索<br />1、应用程序目录<br />2、当前目录<br />3、系统目录 GetSystemDirectory %SystemRoot%\system32<br />4、16位系统目录 %SystemRoot%\system<br />5、Windows目录 GetWindowsDirectory     %SystemRoot%<br />6、PATH环境变量<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

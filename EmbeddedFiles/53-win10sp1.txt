@@ -1,0 +1,67 @@
+主机名:           PC-XIAOHAO
+OS 名称:          Microsoft Windows 10 教育版
+OS 版本:          10.0.16299 暂缺 Build 16299
+OS 制造商:        Microsoft Corporation
+OS 配置:          独立工作站
+OS 构件类型:      Multiprocessor Free
+注册的所有人:     Windows 用户
+注册的组织:
+产品 ID:          00328-10000-00001-AA310
+初始安装日期:     2017/10/23, 13:20:46
+系统启动时间:     2017/11/20, 9:51:39
+系统制造商:       LENOVO
+系统型号:         2464EB3
+系统类型:         x64-based PC
+处理器:           安装了 1 个处理器。
+                  [01]: Intel64 Family 6 Model 58 Stepping 9 GenuineIntel ~2400 Mhz
+BIOS 版本:        LENOVO G3ET93WW(2.53), 2013/4/22
+Windows 目录:     C:\Windows
+系统目录:         C:\Windows\system32
+启动设备:         \Device\HarddiskVolume1
+系统区域设置:     zh-cn;中文(中国)
+输入法区域设置:   zh-cn;中文(中国)
+时区:             (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐
+物理内存总量:     5,720 MB
+可用的物理内存:   1,745 MB
+虚拟内存: 最大值: 7,538 MB
+虚拟内存: 可用:   3,122 MB
+虚拟内存: 使用中: 4,416 MB
+页面文件位置:     C:\pagefile.sys
+域:               WORKGROUP
+登录服务器:       \\PC-XIAOHAO
+修补程序:         安装了 4 个修补程序。
+                  [01]: KB4048951
+                  [02]: KB4049179
+                  [03]: KB4051613
+                  [04]: KB4048955
+网卡:             安装了 5 个 NIC。
+                  [01]: Broadcom 802.11n 网络适配器
+                      连接名:      WLAN
+                      状态:        媒体连接已中断
+                  [02]: Realtek PCIe GBE Family Controller
+                      连接名:      以太网
+                      启用 DHCP:   是
+                      DHCP 服务器: 192.168.10.21
+                      IP 地址
+                        [01]: 192.168.10.111
+                  [03]: VMware Virtual Ethernet Adapter for VMnet1
+                      连接名:      VMware Network Adapter VMnet1
+                      启用 DHCP:   是
+                      DHCP 服务器: 192.168.13.254
+                      IP 地址
+                        [01]: 192.168.13.1
+                        [02]: fe80::2985:4f4e:b567:cb03
+                  [04]: VMware Virtual Ethernet Adapter for VMnet8
+                      连接名:      VMware Network Adapter VMnet8
+                      启用 DHCP:   是
+                      DHCP 服务器: 192.168.216.254
+                      IP 地址
+                        [01]: 192.168.216.1
+                        [02]: fe80::adb3:ae86:e81:c343
+                  [05]: Cisco Systems VPN Adapter for 64-bit Windows
+                      连接名:      以太网 2
+                      状态:        没有硬件
+Hyper-V 要求:     虚拟机监视器模式扩展: 是
+                  固件中已启用虚拟化: 是
+                  二级地址转换: 是
+                  数据执行保护可用: 是

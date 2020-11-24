@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>安装中文</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>安装中文</h1><br/>安装中文语言包<br /><br />sudo apt-get install  language-pack-zh-han*<br /><br /><br />安装gnome包<br /><br />sudo apt-get install   language-pack-gnome-zh-han*<br /><br /><br />安装kde包<br /><br />sudo apt-get install   language-pack-kde-zh-han*<br /><br />到这里就能够查看目录下面的中文字符了。<br /><br /><br />最后运行语言支持检查<br /><br />sudo apt install $(check-language-support)<br /><br />会更新最新的语言支持包<br /><br />在系统设置中选择中文为第一位的语言<br /><br />或<br /><br />修改local文件：<br /><br />sudo vim /var/lib/locales/supported.d/local<br />//删除所有内容，增加以下内容：<br />zh_CN.UTF-8 UTF-8<br />zh_CN GB2312<br />zh_CN.GBK GBK<br />en_US.UTF-8 UTF-8<br />fr_FR ISO-8859-1<br />zh_CN.GB18030 GB18030<br /><br />生成相关的locales：<br /><br />sudo locale-gen --purge<br /><br />修改设置默认语言：<br /><br />sudo vim /etc/default/locale<br />//删除所有内容，增加以下内容：<br />LANG=&quot;zh_CN.UTF-8&quot;<br />LANGUAGE=&quot;zh_CN:zh&quot;<br />LC_NUMERIC=&quot;zh_CN.UTF-8&quot;<br />LC_TIME=&quot;zh_CN.UTF-8&quot;<br />LC_MONETARY=&quot;zh_CN.UTF-8&quot;<br />LC_PAPER=&quot;zh_CN.UTF-8&quot;<br />LC_IDENTIFICATION=&quot;zh_CN.UTF-8&quot;<br />LC_NAME=&quot;zh_CN.UTF-8&quot;<br />LC_ADDRESS=&quot;zh_CN.UTF-8&quot;<br />LC_TELEPHONE=&quot;zh_CN.UTF-8&quot;<br />LC_MEASUREMENT=&quot;zh_CN.UTF-8&quot;<br /><br />修改完成后重启系统<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

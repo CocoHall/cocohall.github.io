@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>管理员运行</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>管理员运行</h1><br/>  auto arg = std::wstring{ L&quot;/c cmd.exe&quot; };<br />  SHELLEXECUTEINFO exec_info{};<br />  exec_info.cbSize = sizeof(exec_info);<br />  exec_info.hwnd = nullptr;<br />  exec_info.lpVerb = L&quot;runas&quot;;<br />  exec_info.lpFile = L&quot;cmd.exe&quot;;<br />  exec_info.lpParameters = arg.c_str();<br />  exec_info.nShow = SW_SHOW; // SW_HIDE;<br /><br />  return ShellExecuteEx(&amp;exec_info);<br />  (会有UAC提示框出现)<br />  <br />  runas /user:administrator <br /> （会新建一个窗口）<br /> <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

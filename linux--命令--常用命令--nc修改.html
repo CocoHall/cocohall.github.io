@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>nc修改</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>nc修改</h1><br/>ubuntu里默认的nc命令指向的是netcat-openbsd<br />没有-e选项<br /><br />需要更改为netcat-traditional<br /><br />安装<br />apt-get install netcat<br /><br />查看版本<br />update-alternatives --config nc<br /><br />有 2 个候选项可用于替换 nc (提供 /bin/nc)。<br /><br />  选择       路径               优先级  状态<br />------------------------------------------------------------<br />* 0            /bin/nc.openbsd       50        自动模式<br />  1            /bin/nc.openbsd       50        手动模式<br />  2            /bin/nc.traditional   10        手动模式<br /><br />要维持当前值[*]请按回车键，或者键入选择的编号：<br /><br />输入2即可<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

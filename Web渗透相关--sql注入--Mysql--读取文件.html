@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>读取文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>读取文件</h1><br/>mysql3.x下 <br /><br />不确定mysql3.x下能否使用load_file()函数（我在mysql3使用手册上没有查到，但貌似是可以的），用 load data infile 读取文件，命令如下 <br /><br />mysql&gt;create table a (cmd text); <br />mysql&gt;<span style="color:#90ee90;">load data infile &#39;c:\\boot.ini&#39; into table a;</span> <br />mysql&gt;select * from a; <br /><br />mysql4.x下 <br /><br />mysql4.x下除了 load data infile 外还可以用大家熟知的 load_file() 来读取，命令如下 <br /><br />mysql&gt;create table a (cmd text); <br />mysql&gt;<span style="color:#90ee90;">insert into a (cmd) values (load_file(&#39;c:\\boot.ini&#39;)); </span><br />mysql&gt;select * from a; <br /><br />mysql5.x下 <br /><br />在linux下，mysql5.x 除了上面两种方法，还可以利用 system 直接执行系统命令的方式来读取文件（是否必须root身份不确定，未测试），命令如下 <br /><br />mysql&gt;system cat /etc/passwd <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

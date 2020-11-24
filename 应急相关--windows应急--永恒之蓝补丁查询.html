@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>永恒之蓝补丁查询</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>永恒之蓝补丁查询</h1><br/><br />powershell<br /><br /><code>[array]$hotfixid=get-hotfix -id KB4012606,KB3210720,KB3210721,KB4012598,KB4012212,KB4012215,KB4012213,KB4012216,KB4012214,KB4012217,KB4013198,KB4015549 -ErrorAction 0  | ForEach-Object {$_.HotFixID}<br /><br />if ($hotfixid -eq $null)<br /> {<br /> Write-host &quot;[-] 危险: MS17010B补丁未打，易遭永恒之蓝攻击!&quot; -ForegroundColor Red<br /> Write-host &quot;补丁参考1: https://docs.microsoft.com/zh-cn/security-updates/Securitybulletins/2017/ms17-010&quot; -ForegroundColor DarkYellow<br /> Write-host &quot;补丁参考2: https://b.360.cn/other/onionwormfix&quot; -ForegroundColor DarkYellow<br /> } else {<br /> Write-Host &quot;[+] ms17010 补丁已打&quot;  -ForegroundColor Green<br />}</code><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

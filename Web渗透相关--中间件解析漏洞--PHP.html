@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>PHP</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>PHP</h1><br/>PHP CGI解析漏洞：<br /><br />IIS 7.0/7.5<br />Nginx &lt; 0.8.3<br /><br />以上的容器版本中默认php配置文件cgi.fix_pathinfo=1时，上传一个存在于白名单的扩展名文件shell.jpg，在请求时以<br /><br />shell.jpg/x.php		请求，会将shell.jpg以php来解析。<br /><br />5.3.4之前存在00截断<br />shell.jpg%00.php<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

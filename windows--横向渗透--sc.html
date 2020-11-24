@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>sc</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>sc</h1><br/>sc<br />常用命令<br />建立 ipc 连接(参见net use + at)后上传等待运行的 bat 脚本到目标系统上，创建服务（开启服务时会以system 权限在远程系统上执行 bat 脚本）<br />sc \\192.168.17.138 create test binpath= &quot;cmd.exe /c start c:\programdata\test.bat&quot;<br />开启服务，运行其它命令可以直接修改 bat 脚本内容<br />sc \\192.168.17.138 start test<br />删除服务<br />sc \\192.168.17.138 delete test<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

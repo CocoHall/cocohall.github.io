@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>psexec</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>psexec</h1><br/>psexec<br /><br />常用命令<br />获取管理员用户权限的交互式 shell<br />psexec \\192.168.17.138 -u Administrator -p !@#123QWE cmd<br /><br />获取普通用户权限的交互式 shell，原因参见 LocalAccountTokenFilterPolicy,要想获取管理员权限 shell ，需要添加 -h 参数。<br />psexec \\192.168.17.138 -u test -p !@#123QWE cmd<br /><br />在远程系统上以 system 权限执行单条命令，有时回显只有一行，原因尚不清楚。<br />psexec \\192.168.17.138 -u Administrator -p !@#123QWE -s cmd /c &quot;quser&quot;<br /><br />在远程系统上执行 bat 脚本<br />psexec \\192.168.17.138 -u Administrator -p !@#123QWE c:\programdata\test.bat<br /><br />拷贝文件到远程机器并以交互方式运行，运行结束后会删除<br />psexec \\192.168.17.138 -c C:\Users\test\Desktop\GetHashes.exe<br /><br />其它参数<br />–accepteula 第一次运行会弹框,输入这个参数便不会弹框<br />-s 以 “nt authority\system” 权限运行远程进程<br />-h 如果可以，以管理员权限运行远程进程<br />-d 不等待程序执行完就返回，请只对非交互式应用程序使用此选项<br />\ip 可以替换成 @ip.txt (存放多个 ip 的文本)，可以批量执行命令<br /><br />工具说明<br />• 需要远程系统开启 ADMIN$ 共享<br /><br />• 建立 ipc 连接后可以不指定用户名和密码<br /><br />• 不能仅拷贝文件不执行，只需要拷贝时可以建立 ipc 连接后c opy<br /><br />• 在启动psExec建立连接之后，远程系统上会被安装一个服务：PSEXESVC。安装服务会留下日志，而且psexec退出时有可能服务删除失败，所以不推荐使用 psexec。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

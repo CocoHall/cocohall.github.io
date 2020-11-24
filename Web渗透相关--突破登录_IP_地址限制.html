@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>突破登录 IP 地址限制</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>突破登录 IP 地址限制</h1><br/>可以尝试用下面的 9 个 HTTP 头字段，伪造下 IP 地址碰碰运气<br /><br />Client-Ip: 127.0.0.1<br />X-Client-IP: 127.0.0.1<br />X-Real-IP: 127.0.0.1<br />True-Client-IP: 127.0.0.1<br />X-Originating-IP: 127.0.0.1<br />X-Forwarded-For: 127.0.0.1<br />X-Remote-IP: 127.0.0.1<br />X-Remote-Addr: 127.0.0.1<br />X-Forwarded-Host: 127.0.0.1<br /><br />伪造后也不行，可以试试将正常的 IP 地址部分改成 sql 注入语句、xss 语句。<br />可能触发不了漏洞，但我确实遇到过异常字符使当前处理流程异常的。<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

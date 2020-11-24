@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>工控协议探测</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>工控协议探测</h1><br/>探测modbus协议的设备<br />nmap -sV –script modbus-discover 166.169.57.136 -p 502<br /><br />探测EthernetIP协议的设备<br />nmap -p 44818 –script enip-enumerate.nse 221.206.153.114<br /><br />探测CoDeSyS协议的设备<br />nmap -p 1200,2455 –script codesys-v2-discover 178.242.1.44<br /><br />探测NiagaraFox协议的设备<br />nmap -p 1911 –script fox-info 67.176.19.167<br /><br />探测S7协议的设备<br />nmap -p 102 –script s7-enumerate.nse 79.135.33.188<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

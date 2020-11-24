@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>weblogic安装补丁</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>weblogic安装补丁</h1><br/><br /><br />查看补丁情况：<br />bsu.cmd -prod_dir=&quot;T:\somemidware\weblogic10.3.6\wlserver_10.3&quot;  -status=applied -verbose -view<br /><br /><br />查询版本<br />进入：<br />T:\somemidware\weblogic10.3.6\wlserver_10.3\server\lib<br />输入：<br />java -cp weblogic.jar weblogic.version<br /><br /><br />更新补丁：<br />patchlist 表示补丁的编号<br />进入：T:\somemidware\weblogic10.3.6\utils\bsu<br />补丁冲突需要先卸载之前的补丁<br />bsu.cmd -remove -patchlist=B47X -prod_dir=&quot;T:\somemidware\weblogic10.3.6\wlserver_10.3&quot;<br /><br />补丁必须放在{MW_HOME}/utils/bsu/cache_dir目录下<br /><br />bsu.cmd -install -patch_download_dir=&quot;T:\somemidware\weblogic10.3.6\utils\bsu\cache_dir&quot; -patchlist=GFWX -prod_dir=&quot;T:\somemidware\weblogic10.3.6\wlserver_10.3&quot;<br /><br /><br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>HTTPoxy漏洞</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>HTTPoxy漏洞</h1><br/>CVE-2016-5385<br />影响范围：<br />&lt;=PHP 5.6.23<br />原理：<br />cgi（fastcgi）要将用户传入的所有HTTP头都加上HTTP_前缀放入环境变量中<br />大多数类库会提取环境变量中的HTTP_PROXY值作为HTTP代理地址<br /><br />恶意用户通过提交Proxy: http://evil.com这样的HTTP头，将使用缺陷类库的网站的代理设置为http://evil.com<br /><br /><br /><a href=""><img src="images\384-1.png" alt="images\384-1.png" /></a><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

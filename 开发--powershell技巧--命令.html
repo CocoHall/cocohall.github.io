@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>命令</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>命令</h1><br/>$a = (变量)<br />支持gb mb<br />$env:COMPUTERNAME 计算机名<br /><br />一般都是大小写不敏感<br />如-ceq 大小写敏感<br /><br />帮助<br />help xxx<br />get-help xxx<br /><br /><br />Get-Process -Name chrome	(gps 支持正则) 获取进程<br />Get-Item C:\Users\xiaohao\Desktop\*	获取文件名<br />Move-Item	filepath1	filepath2		移动<br />Move-Item	filepath1	-Destination	目录名<br />Move-Item	-path	目录名	-Destination	目录名2<br /><br />Get-History	历史缓冲区<br />Get-Command	获得命令<br />Get-Service	获得服务列表<br />Where-Objict{$_.xxx}	条件	$_ 表示通过|传递过来的每一个结果对象<br /><br />-WhatIf		查看命令将执行什么操作<br />-Confirm<br /><br />Set-Location c:\	设置当前目录<br />Get-ChildItem		列出当前文件<br /><br />aaa | Get-Member	检索对象的属性方法<br />Get-Member -InputObject xxx<br /><br /><br />&quot;abcd&quot;.Replace(&quot;a&quot;,&quot;e&quot;)		普通替换<br />&quot;abcd&quot; -replace &#39;.*?&#39; &#39;$name&#39;	正则替换<br /><br />&quot;abcd&quot; -like &quot;*b*&quot;	是否完全匹配DOS下的正则<br />&quot;abcd&quot; -match &#39;.*b.*&#39; 是否可以匹配到正则（包含该正则）<br />&quot;abcd&quot;.Contains(&quot;a&quot;)	是否包含 不支持正则<br />&quot;abcd&quot;.IndexOf(&quot;a&quot;)		包含字符串的位置<br /><br />&quot;abcd&quot;.ToUpper()		大写<br />&quot;abcd&quot;.ToLower()		小写<br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

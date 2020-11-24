@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>C#交互编译CSI绕过</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>C#交互编译CSI绕过</h1><br/><br />在Visual Studio 2015 Update 1引入<br />直接运行csi.exe会进入编译环境，可在里面直接填入代码并运行<br /><br />路径：<br /><a href="file://D:\study\VS2017\MSBuild\15.0\Bin\Roslyn\csi.exe">D:\study\VS2017\MSBuild\15.0\Bin\Roslyn\csi.exe</a><br /><a href="file://C:\Program Files (x86)\Microsoft Web Tools\Packages\Microsoft.Net.Compilers.2.1.0\tools\csi.exe">C:\Program Files (x86)\Microsoft Web Tools\Packages\Microsoft.Net.Compilers.2.1.0\tools\csi.exe</a><br />C:\Program Files (x86)\MSBuild\14.0\Bin<br /><br /><br />该方法只用于Win10<br /><br />该文件依赖项文件列表如下：<br />  • Microsoft.CodeAnalysis.CSharp.dll<br />  • Microsoft.CodeAnalysis.CSharp.Scripting.dll<br />  • Microsoft.CodeAnalysis.dll<br />  • Microsoft.CodeAnalysis.Scripting.dll<br />  • System.AppContext.dll<br />  • System.Collections.Immutable.dll<br />  • System.IO.FileSystem.dll<br />  • System.IO.FileSystem.Primitives.dll<br />  • System.Reflection.Metadata.dll<br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

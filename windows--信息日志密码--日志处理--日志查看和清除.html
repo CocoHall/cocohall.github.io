@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>日志查看和清除</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>日志查看和清除</h1><br/>1、Windows2003下默认存在eventquery.vbs<br /><br />cscript c:\WINDOWS\system32\eventquery.vbs /fi &quot;Datetime eq 06/24/2015,01:00:00AM-06/24/2015,10:00:00AM&quot; /l Security /V #查看SECURITY日志 2015-6.24 上午1点-上午10点日志<br /><br /><br />2、wevtutil win7之后自带<br /><br />wevtutil el | more 			 	查看系统日志列表项<br />wevtutil cl &quot;windows powershell&quot; 		清除powershell日志<br />wevtutil cl &quot;security&quot; 	 		清除系统安全日志<br />wevtutil cl &quot;system&quot;     			清除系统日志<br />wevtutil cl &quot;application&quot;  			清除应用程序日志<br /><br />wevtutil qe security /rd:true /f:text /q:&quot;*[system/eventid=4624 and 4623 and 4627]&quot; <br />查询所有登录、注销相关的日志语法<br /><br />wevtutil qe /f:text Application             <br />查看指定类别的日志内容<br /><br /><br />利用常规for循环 一句话清除所有系统日志:<br />	for /F &quot;tokens=*&quot; %a in (&#39;wevtutil.exe el&#39;) DO wevtutil.exe cl &quot;%a&quot;<br /><br />如果你弹回来的是一个ps的shell,也可直接用ps来批量删日志:<br />	wevtutil el | Foreach-Object {Write-Host &quot;Clearing $_&quot;; wevtutil cl &quot;$_&quot;}<br />	<br />3、powershell(管理员)<br />查看所有日志：<br />Get-WinEvent<br />查看应用程序类别下的日志：<br />Get-WinEvent -FilterHashtable @{logname=&quot;Application&quot;;}<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

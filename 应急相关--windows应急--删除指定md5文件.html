@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>删除指定md5文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>删除指定md5文件</h1><br/><br /><br />powershell:<br /><br />$md5=Get-FileHash .\*.exe -Algorithm md5<br /><br /><br />$md5 | Where -Property Hash -in -Value &quot;59B18D6146A2AA066F661599C496090D&quot;,&quot;6FF97A7DABF09EBB07C157F286DC81AD&quot;<br /> | Remove-Item<br /> <br /> <br /> 低版本不支持直接获得md5，下面是通用函数<br /> function Get-md5 {<br />  Param($path)<br />  if($path -ne $null){<br />   if(Test-Path $path -PathType Leaf){<br />  $md5file=certutil -hashfile $path MD5<br />  [string]$hash=$md5file -match &quot;^[a-f0-9]{32}$&quot;<br />  $retVal = New-Object -TypeName psobject -Property @{<br />                    PATH = $path<br />                    Hash = $hash<br />                }<br />            $retVal<br />    }<br /><br />  }<br /><br /> else{<br />  write-host [-] &#39;Get-md5&#39; c:\windows\system32\calc.exe -ForegroundColor Red<br />  break<br />  }<br />}<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

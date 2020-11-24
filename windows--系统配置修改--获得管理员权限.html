@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>获得管理员权限</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>获得管理员权限</h1><br/>powershell.exe -command start-process powershell -verb runAs<br />管理员权限的powershell<br /><br /><br />bat脚本中写入<br /><br />@echo off  <br /> <br />&gt;nul 2&gt;&amp;1 &quot;%SYSTEMROOT%\system32\cacls.exe&quot; &quot;%SYSTEMROOT%\system32\config\system&quot; <br /> <br />REM 如果错误信息不是0那就说明没有管理员权限<br />if &#39;%errorlevel%&#39; NEQ &#39;0&#39; (  <br />    echo 开始获取管理员权限，请点击是。<br />    choice /t 2 /d y /n &gt;nul    <br />    goto UACPrompt  <br />) else ( goto gotAdmin )  <br />   <br />:UACPrompt  <br />    echo Set UAC = CreateObject^(&quot;Shell.Application&quot;^) &gt; &quot;%temp%\getadmin.vbs&quot;<br />    echo UAC.ShellExecute &quot;%~s0&quot;, &quot;&quot;, &quot;&quot;, &quot;runas&quot;, 1 &gt;&gt; &quot;%temp%\getadmin.vbs&quot; <br />    &quot;%temp%\getadmin.vbs&quot; <br />    exit /B  <br />   <br />:gotAdmin  <br />    if exist &quot;%temp%\getadmin.vbs&quot; ( del &quot;%temp%\getadmin.vbs&quot; )  <br />    pushd &quot;%CD%&quot; <br />    CD /D &quot;%~dp0&quot; <br />    <br />REM 主代码<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

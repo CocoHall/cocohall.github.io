@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>后台运行</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>后台运行</h1><br/>1、nohup<br /><br />nohup python test.py &amp;<br /><br />输入输出会重定向，后台运行，终端关闭后继续执行<br /><br />2、setsid<br /><br />setsid python test.py<br /><br />没有重定向，终端看起来还是正常执行命令，终端关闭后继续执行<br /><br />3、( python test.py &amp;)<br /><br />后台执行，终端关闭后继续执行<br /><br />4、screen<br /><br />screen -dmS session_name  创建新的session，不连接<br />screen -list                        列出所有会话。<br />screen -r session_name      重新连接指定会话。<br />快捷键CTRL-a d 来暂时断开当前会话。<br /><br />5、disown<br /><br />场景：已经执行了耗时任务，需要用disown保持其连续执行<br /><br />disown -h jobspec来使某个作业忽略HUP信号<br /><br />使用jobs查看job<br /><br />ctrl+z 放入后台，记录jobs号<br />bg jobs<br />disown -h jobs<br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

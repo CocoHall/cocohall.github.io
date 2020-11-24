@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Windows2000权限提升工具</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Windows2000权限提升工具</h1><br/><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\52-DebPloit.zip">Linked file: DebPloit.zip </a></td></tr></table><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\52-ERunAsX.dll">Linked file: ERunAsX.dll </a></td></tr></table><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\52-ERunAsX.exe">Linked file: ERunAsX.exe </a></td></tr></table><br /><br /><br />WindowsNT &amp; Windows2000权限提升工具<br /><br />作者：Radim &quot;EliCZ&quot; Picha(Bugs@EliCZ.cjb.net)<br /><br />1、概述<br />Windows又出了新漏洞，可以将任意用户提升到SYSTEM级别的权限。<br />漏洞出在smss.exe中的DEBUG子系统，所有普通用户都可以通过该<br />漏洞获得对系统中任意进程或线程句柄的控制，从而可以以SYSTEM<br />或管理员权限执行任意命令。<br /><br />2、使用方法<br />    假设我们已经获得一台机器上的一个GUEST用户（或其他普通<br />用户），现在我们要这个工具来获得系统最高权限。进行如下步骤：<br />把ERunAsX.exe和ERunAsX.dll这两个文件复制到目标主机上可访问<br />的目录下，例如C:\下。以GUEST身份运行&quot;ERunAsX 要执行命令&quot;，<br />例如&quot;ERunAsX cmd.exe&quot;，这时执行的命令是以SYSTEM权限运行的。<br /><br />3、补丁<br />目前为止，微软还没有就这个漏洞发布任何补丁，漏洞的发现者提<br />供了一个修补漏洞的方法，详细情况见源代码。<br /><br />4、注意<br /><br />1）Windows XP不受这个漏洞的影响；<br />2）在系统中运行这个程序会引起系统不稳定，而且对每一个系统<br />进程只能操作一次，第2次运行ERunAsX时需要在第二个参数位置<br />指定另外一个系统进程的PID。<br /><br />5、文件内容<br />ERunAsX.exe和ERunAsX.dll：提升权限的工具<br />DebPloit.zip：程序源代码、说明以及补丁<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

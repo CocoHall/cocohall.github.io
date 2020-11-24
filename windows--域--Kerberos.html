@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Kerberos</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Kerberos</h1><br/>KDC（Key Distribution Center）= 密钥分发中心<br />    AS（Authentication Server）= 身份认证服务器<br />    TGS（Ticket Granting Server）= 票据授权服务器<br />TGT（Ticket Granting Ticket）= 票据授权票据，票据的票据<br />SGT  (Service Granting Ticket) = 服务许可票据<br /><br /><br /><a href=""><img src="images\275-1.png" alt="images\275-1.png" /></a><br /><br />①：<br />    1、客户端向AS发送身份验证服务请求，包含用户名，TGS机构名，用户名对应的NTLM加密的时间戳<br />    2、AS查询用户名对应的NTLM，解密时间戳，并验证时间是否有效<br />②：<br />    1、AS生成随机数K1，并使用用户名对应的NTLM加密K1，生成TGT票据，即用户KRBTGT的NTLM加密的(K1，用户名，有效期等)<br />    2、客户端使用自己的NTLM解密获得K1<br /><br />③：<br />    1、客户端向TGS发送服务验证请求，包含TGT、要访问的服务和K1加密的用户名、时间戳<br />    2、TGS用用户KRBTGT的NTLM解密TGT得到K1、用户名、有效期，再用K1解密身份验证信息，获得用户名进行验证<br />④：<br />    1、TGS生成随机数K2，并使用K1加密K2，生成SGT票据，即所要访问的服务的NTLM加密的(K2，用户名，有效期等)<br />    2、客户端使用K1解密获得K2<br /><br />⑤：<br />    1、客户端向服务发送验证请求，包含SGT和K2加密的用户名、时间戳<br />    2、服务器使用自己的NTLM解密SGT，得到K2、用户名、有效期，再用K2解密身份验证信息，获得用户名进行验证<br />⑥：<br />    1、如果没有开启相互验证标志，服务器直接返回成功<br />    2、如果开启了相互验证标记，服务器发送用K2加密的SGT中的时间戳<br />    3、客户端解密获得时间戳，验证时间戳和第5步中的时间戳是否一致<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

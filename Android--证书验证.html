@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>证书验证</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>证书验证</h1><br/><br />内置证书<br />1、反编译app, 替换cer为burp的证书后重新打包。如果有反二次打包机制，可以通过xposed hook相关方法来替换证书。<br />2、另外可以从app内取出cer文件并导入浏览器，就可以用浏览器访问app的url。<br />3、用xposed或修改smali控制创建连接的SSLSocketFactory，使它不加载信任库。<br /><br /><br /><br /><br /> 另外app内的证书可能有两种格式<br /><br />    .cer/.der<br />    如果是.der证书，按以下步骤<br />        1、逆向，取出.cer证书文件<br />        2、用burp的证书替换掉app内的证书，app重新打包<br /><br />    .bks<br />    如果是keystore文件就简单了，先取出来，如果是单向认证，用keytool把burp的证书导入使之成为truststore内的一条就可以了；<br />    如果是双向认证，除了加入truststore或替换cer文件，还要把keystore加入burp中，添加之前需要将它转换成pkcs12格式。如下图<br />    <br />    <br />    <a href=""><img src="images\333-1.png" alt="images\333-1.png" /></a><br />    <br />    android 4.X通过设置wifi代理可以为所以应用设置代理<br />    但在5.x版本中设置的wifi代理只能为浏览器使用，如果要为app设置代理需要root后安装全局代理工具(如proxydroid)。<br />    <br />    <p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

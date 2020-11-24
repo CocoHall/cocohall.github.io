@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>IIS宽字节编码</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>IIS宽字节编码</h1><br/>asp+iis的环境中，当我们请求的url中存在单一的百分号%时，iis+asp会将其忽略掉<br />例如sel%ect user f%rom table<br /><br />iis支持unicode的解析，当我们请求的url存在unicode字符串的话iis会自动将其转换<br /><br />例如%u0031等<br /><br /><br />unicode在iis解析之后会被转换成multibyte，但是转换的过程中可能出现： <br />多个widechar会有可能转换为同一个字符。<br /><br />譬如select中的e对应的unicode为%u0065，但是%u00f0同样会被转换成为e。<br />字母a：<br />%u0000<br />%u0041<br />%u0061<br />%u00aa<br />%u00e2<br />单引号：<br />%u0027<br />%u02b9<br />%u02bc<br />%u02c8<br />%u2032<br />%uff07	中文符号<br />%c0%27<br />%c0%a7<br />%e0%80%a7<br />空白：<br />%u0020<br />%uff00<br />%c0%20<br />%c0%a0<br />%e0%80%a0<br />左括号(：<br />%u0028<br />%uff08<br />%c0%28<br />%c0%a8<br />%e0%80%a8<br />右括号)：<br />%u0029<br />%uff09<br />%c0%29<br />%c0%a9<br />%e0%80%a9<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

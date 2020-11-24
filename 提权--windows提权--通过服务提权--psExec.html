@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>psExec</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>psExec</h1><br/><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\46-PsExec.exe">Linked file: PsExec.exe </a></td></tr></table><br /><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\46-PsExec64.exe">Linked file: PsExec64.exe </a></td></tr></table><br />psexec在第一次运行的时候会弹出框框，让用户选择是否允许此软件运行。<br />如果在命令行模式下面，防止弹框，第一次运行时需要带参数： /accepteula，此参数未公开。<br /><br />需要下载微软的pstool<br /><a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec">https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec</a><br /><br />使用psexec会创建PSEXESVC服务，产生日志Event 4697、Event 7045、Event 4624和Event 4652<br />psexec.exe -accepteula -s -i -d cmd.exe<br /><br /><br />创建/执行远程命令代码。<br />执行远程进程的前提条件是对方机器必须开启ipc$，以及admin$,否则无法执行。下面我们来看详细命令：<br /><br />开启ipc$<br />net share ipc$<br /><br />开启admin$<br />net share admin$<br /><br />在对方电脑上运行cmd命令，且不让对方看到这个窗口(-i是显示)<br />psexec \\192.168.100.2 -u administrator -p 123456 -s cmd<br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

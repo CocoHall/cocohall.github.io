@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>开机启动</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>开机启动</h1><br/>debian启动和关闭目录：<br />    以K开头的脚本传入stop参数<br />    以S开头的脚本传入start参数<br />    以D开头的init脚本都会被忽略<br />    脚本运行顺序先K后S，从数字小的到数字大的<br /><br />/etc/rc0.d 关机<br />/etc/rc1.d 单用户模式，一般用来找回root密码<br />/etc/rc2.d 没有NFS网络共享的多用户模式<br />/etc/rc3.d 命令行模式<br />/etc/rc4.d 保留<br />/etc/rc5.d 图形模式启动时的启动目录<br />/etc/rc6.d 重启<br /><br />/etc/init.d 真正的shell脚本<br /><br />rc3.d -&gt; crontab -&gt; @reboot<br />crontab <br /><strong>@reboot /root/xx/sh.sh</strong><br /><br /><strong>init -&gt; rc.local</strong><br /><br /><strong>/etc/init/*.conf</strong><br /><br /><strong>/etc/profile</strong><br /><br /><strong>/etc/profile.d/</strong><br /><br />~/.bash_profile   |<br />~/.bash_login     |-&gt;只运行一个，针对当前用户<br />~/.profile           |<br /><br />~/.bashrc<br /><br />启动服务删除和添加<br />update-rc.d apache2 remove<br />update-rc.d apache2 defaults<br /><br /><br />update-rc.d apache2 defaults 20 80 #start 和 kill<br />update-rc.d apache2 start 20 2 3 4 5 . stop 80 0 1 6 . #2 3 4 5 和 0 1 6 是启动级别<br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

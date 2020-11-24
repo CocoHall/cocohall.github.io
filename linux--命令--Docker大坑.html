@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Docker大坑</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Docker大坑</h1><br/><br />镜像和容器的区别：<br /><br />镜像是静态资源，不可写<br />容器是镜像的实例化，镜像运行后会会产生一个容器<br /><br /><br />docker在linux下没有虚拟化，localhost就是主机<br />在windows下会先虚拟化一台linux再在linux上运行，默认ip:192.168.99.100<br /><br />docker image list 查看镜像<br /><br />docker save 镜像id    &gt; /opt/file.tar  导出镜像<br />docker load &lt; /opt/file.tar               导入镜像<br /><br />docker ps   查看运行的容器<br />docker ps -a 查看所有容器<br /><br /><br />docker rmi imageID 删除镜像<br />docker rm containerID 删除容器<br /><br /><br />docker run <strong>-d</strong> -p 127.0.0.1:物理机端口:容器端口(/udp) imageID    <br />运行镜像，-d 后台运行，-p端口映射，前面的端口是主机端口<br />docker exec -it containerID /bin/bash                   展示一个容器的shell页面<br /><br />docker start containerID        运行一个容器<br /><br /><br />-e MAIL_PASSWORD=&#39;xxxxxx&#39;                           添加环境变量<br />-v $PWD/srcpm:/opt/webapp/srcpm                   添加主机的目录，不能带空格，win下好像会出错<br /><br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

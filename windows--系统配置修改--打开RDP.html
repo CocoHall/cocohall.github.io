@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>打开RDP</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>打开RDP</h1><br/>wmic RDTOGGLE WHERE ServerName=&#39;%COMPUTERNAME%&#39; call SetAllowTSConnections 1<br /><br />REG ADD &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 0 /f<br /><br />wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS != &quot;&quot;) call setallowtsconnections 1<br /><br />wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName =&#39;RDP-Tcp&#39;) call setuserauthenticationrequired 1<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

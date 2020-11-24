@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>go编译</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>go编译</h1><br/>go删除调试信息    <a href="https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/86464378">https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/86464378</a><br /><br />32位程序<br />set GOARCH=386<br /><br />go build -ldflags &quot;-s -w” [&lt;your/package]<br /><br />无窗口模式<br />go build -ldflags &quot;-H windowsgui&quot;     main<br /><br />go build -ldflags &quot;-s -w -H windowsgui&quot; main<br /><br />隐藏子程序窗口<br />q:=exec.Command(<span style="color:#6a8759;">&quot;cmd&quot;</span><span style="color:#cc7832;">, </span><span style="color:#6a8759;">&quot;/c&quot;</span><span style="color:#cc7832;">,</span>s)<br />q.SysProcAttr = &amp;syscall.<span style="color:#769aa5;">SysProcAttr</span>{HideWindow: <em><span style="color:#9876aa;">true</span></em><em>}<br />_ = q.Start()</em><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>加载dll</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>加载dll</h1><br/><br /><h3>方法1：rundll32</h3><code><br /></code>默认是32位的rundll32<br />需要显示声明导出函数才能调用,会加载DllMain函数<br />extern &quot;C&quot; _declspec(dllexport) void __cdecl funname<br />rundll32 payload.dll,main<br /><br /><h3>方法2：regsvr32</h3><br />regsvr32 a.dll  表示调用DllRegisterServer<br />regsvr32 /u a.dll   表示调用DllUnregisterServer<br />regsvr32 /n /i a.dll    表示调用DllInstall<br />支持http和smb<br /><br /><br /><h3>方法3：odbcconf</h3><br />odbcconf.exe /a {regsvr c:\test\odbcconf.dll}<code><br /></code>参考：<br /><a href="https://3gstudent.github.io/3gstudent.github.io/Study-Notes-Weekly-No.3(Use-odbcconf-to-load-dll-&-Get-Exports-&-ETW-USB-Keylogger)/">《Study Notes Weekly No.3(Use odbcconf to load dll &amp; Get-Exports &amp; ETW USB Keylogger)》</a><br /><br /><h3>方法4：Tracker</h3><br />Tracker.exe /d test.dll /c svchost.exe<code><br /></code>tracker.exe包含微软数字签名，可绕过应用程序白名单的限制<br /><br />实验没有成功<br />tracker是.NET中的一个程序<br /><br /><h3>方法6：xwizard.exe</h3><br />复制%windir%\system32\下的xwizard.exe至新目录C:\x<br />将msg.dll重命名为xwizards.dll，保存在C:\x<br />命令行执行：<br />xwizard processXMLFile 1.txt<code><br /></code>成功加载C:\x\xwizards.dll<br /><br /><br />方法7 net下的regasm<br />C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe /u payload.dll<br /><br /><br /><br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

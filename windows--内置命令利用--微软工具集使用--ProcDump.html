@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>ProcDump</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>ProcDump</h1><br/>procdump -ma -c 50 -s 3 -n 2 5844(Process Name or PID)<br />-ma 生成full dump, 即包括进程的所有内存. 默认的dump格式包括线程和句柄信息.<br />-c 在CPU使用率到达这个阀值的时候, 生成dump文件.<br />-s CPU阀值必须持续多少秒才抓取dump文件.<br />-n 在该工具退出之前要抓取多少个dump文件.<br /><br />procdump.exe -accepteula -ma lsass.exe lsass.dmp<br /><br />procdump.exe -ma 6612<br />就可以获取Process ID为6612的Full Dump文件<br />accepteula：隐藏提示框<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

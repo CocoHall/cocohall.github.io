@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>运行时加载dll</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>运行时加载dll</h1><br/><br />没有dll时也可以运行，但会影响功能<br /><br /><div class="codebox"><div class="codebox">#include&nbsp;&quot;stdafx.h&quot;<br />#include&nbsp;&lt;windows.h&gt;<br />typedef&nbsp;int(*lpAddFun)();<br />//函数指针,和dll导出函数中的返回值，参数一致<br />int&nbsp;main()<br />{<br />	HINSTANCE&nbsp;hDll;//句柄<br />	lpAddFun&nbsp;addFun;//函数指针<br />	hDll&nbsp;=&nbsp;LoadLibrary(&quot;dllPlain.dll&quot;);//动态加载DLL模块句柄<br />	if&nbsp;(hDll)<br />	{<br />		addFun&nbsp;=&nbsp;(lpAddFun)GetProcAddress(hDll,&nbsp;&quot;message&quot;);<br />		//得到所加载DLL模块中函数的地址，message是dll中的函数名<br />		if&nbsp;(addFun)<br />		{<br />			int&nbsp;result&nbsp;=&nbsp;addFun();<br />			printf(&quot;%d&quot;,&nbsp;result);<br />		}&nbsp;FreeLibrary(hDll);//释放已经加载的DLL模块<br />	}<br />	return&nbsp;0;<br />}</div></div><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

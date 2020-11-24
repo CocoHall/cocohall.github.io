@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>sqlserver查看所有表</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>sqlserver查看所有表</h1><br/>命令行连接<br />sqlcmd -S localhost -U sa -P sa -d 数据库 -Q &quot;查询语句&quot; -o 输出文件<br />每行命令输完后输入go回车<br /><br /><br />1.获取所有数据库名: <br />SELECT Name FROM Master..SysDatabases ORDER BY Name <br /><br />2.获取所有表名: <br />SELECT Name FROM &#39;DatabaseName&#39;..SysObjects Where XType=&#39;U&#39; ORDER BY Name <br /><br />&#39;DatabaseName&#39; 替换为需要查询的数据库<br /><br />XType=&#39;U&#39;:表示所有用户表; <br />XType=&#39;S&#39;:表示所有系统表; <br />TR 指的是触发器，<br /><br />3.获取所有字段名: <br />SELECT Name FROM SysColumns WHERE id=Object_Id(&#39;TableName&#39;) <br /><br /><br />&#39;TableName&#39; 替换为需要查询的表<br /><br /><br /><br />可以看数据库保存的路径<br />select * from dbo.sysdatabases<br /><br />查看数据库状态<br />sp_helpdb<p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

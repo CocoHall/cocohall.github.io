@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>Windows错误解释空格</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>Windows错误解释空格</h1><br/><a href="http://www.freebuf.com/vuls/87463.html">http://www.freebuf.com/vuls/87463.html</a><br />例如如下文件路径：<br /><br />C:\Program Files\Some Folder\Service.exe<br /><br />Windows会尝试定位并执行如下的程序：<br /><br />C:\Program.exe<br />C:\Program Files\Some.exe<br />C:\Program Files\Some Folder\Service.exe<br /><br />我们可以利用下面一行WMI命令查询（作者：@Danial Compton），列出目标机器上所有没有用引号包含的服务路径：<br /><br />wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;<br /><br />再在对应目录下放置恶意程序，等待重启即可<br /><br />2015年的漏洞<br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <title>mysql查看所有表</title>
+      <meta name="generator" content="CherryTree">
+      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+    </head>
+    <body><div class='page'><h1 class='title'>mysql查看所有表</h1><br/>Mysql 5.0之后才有information_schema表<br /><br />查看数据库<br />show databases;<br /><br />获取数据库中的表<br />select group_concat(table_name) from information_schema.tables where table_schema=database() #<br /><br />获取表中的字段名<br />select group_concat(column_name) from information_schema.columns where table_name=&#39;上面获得的表名&#39; #<br /><br /><p align="center"><img src="images\home.svg" height="22" width="22">  <a href="index.html">索引</a></p></div></body></html>
